@@ -17,1997 +17,2003 @@ class FHIRElementFactory(object):
         :param dict jsondict: The JSON dictionary to use for data
         :returns: A resource of the respective type or `Element`
         """
-        if "Account" == resource_type:
+        cleaned_resource_type = resource_type.strip() if resource_type else None
+        if not cleaned_resource_type:
+            from . import element # Fallback for empty or None resourceType
+            return element.Element(jsondict)
+
+        resource_type_lower = cleaned_resource_type.lower()
+
+        if "account" == resource_type_lower:
             from . import account
             return account.Account(jsondict)
-        if "AccountCoverage" == resource_type:
+        if "accountcoverage" == resource_type_lower:
             from . import account
             return account.AccountCoverage(jsondict)
-        if "AccountGuarantor" == resource_type:
+        if "accountguarantor" == resource_type_lower:
             from . import account
             return account.AccountGuarantor(jsondict)
-        if "ActivityDefinition" == resource_type:
+        if "activitydefinition" == resource_type_lower:
             from . import activitydefinition
             return activitydefinition.ActivityDefinition(jsondict)
-        if "ActivityDefinitionDynamicValue" == resource_type:
+        if "activitydefinitiondynamicvalue" == resource_type_lower:
             from . import activitydefinition
             return activitydefinition.ActivityDefinitionDynamicValue(jsondict)
-        if "ActivityDefinitionParticipant" == resource_type:
+        if "activitydefinitionparticipant" == resource_type_lower:
             from . import activitydefinition
             return activitydefinition.ActivityDefinitionParticipant(jsondict)
-        if "Address" == resource_type:
+        if "address" == resource_type_lower:
             from . import address
             return address.Address(jsondict)
-        if "AdverseEvent" == resource_type:
+        if "adverseevent" == resource_type_lower:
             from . import adverseevent
             return adverseevent.AdverseEvent(jsondict)
-        if "AdverseEventSuspectEntity" == resource_type:
+        if "adverseeventsuspectentity" == resource_type_lower:
             from . import adverseevent
             return adverseevent.AdverseEventSuspectEntity(jsondict)
-        if "AdverseEventSuspectEntityCausality" == resource_type:
+        if "adverseeventsuspectentitycausality" == resource_type_lower:
             from . import adverseevent
             return adverseevent.AdverseEventSuspectEntityCausality(jsondict)
-        if "Age" == resource_type:
+        if "age" == resource_type_lower:
             from . import age
             return age.Age(jsondict)
-        if "AllergyIntolerance" == resource_type:
+        if "allergyintolerance" == resource_type_lower:
             from . import allergyintolerance
             return allergyintolerance.AllergyIntolerance(jsondict)
-        if "AllergyIntoleranceReaction" == resource_type:
+        if "allergyintolerancereaction" == resource_type_lower:
             from . import allergyintolerance
             return allergyintolerance.AllergyIntoleranceReaction(jsondict)
-        if "Annotation" == resource_type:
+        if "annotation" == resource_type_lower:
             from . import annotation
             return annotation.Annotation(jsondict)
-        if "Appointment" == resource_type:
+        if "appointment" == resource_type_lower:
             from . import appointment
             return appointment.Appointment(jsondict)
-        if "AppointmentParticipant" == resource_type:
+        if "appointmentparticipant" == resource_type_lower:
             from . import appointment
             return appointment.AppointmentParticipant(jsondict)
-        if "AppointmentResponse" == resource_type:
+        if "appointmentresponse" == resource_type_lower:
             from . import appointmentresponse
             return appointmentresponse.AppointmentResponse(jsondict)
-        if "Attachment" == resource_type:
+        if "attachment" == resource_type_lower:
             from . import attachment
             return attachment.Attachment(jsondict)
-        if "AuditEvent" == resource_type:
+        if "auditevent" == resource_type_lower:
             from . import auditevent
             return auditevent.AuditEvent(jsondict)
-        if "AuditEventAgent" == resource_type:
+        if "auditeventagent" == resource_type_lower:
             from . import auditevent
             return auditevent.AuditEventAgent(jsondict)
-        if "AuditEventAgentNetwork" == resource_type:
+        if "auditeventagentnetwork" == resource_type_lower:
             from . import auditevent
             return auditevent.AuditEventAgentNetwork(jsondict)
-        if "AuditEventEntity" == resource_type:
+        if "auditevententity" == resource_type_lower:
             from . import auditevent
             return auditevent.AuditEventEntity(jsondict)
-        if "AuditEventEntityDetail" == resource_type:
+        if "auditevententitydetail" == resource_type_lower:
             from . import auditevent
             return auditevent.AuditEventEntityDetail(jsondict)
-        if "AuditEventSource" == resource_type:
+        if "auditeventsource" == resource_type_lower:
             from . import auditevent
             return auditevent.AuditEventSource(jsondict)
-        if "BackboneElement" == resource_type:
+        if "backboneelement" == resource_type_lower:
             from . import backboneelement
             return backboneelement.BackboneElement(jsondict)
-        if "Basic" == resource_type:
+        if "basic" == resource_type_lower:
             from . import basic
             return basic.Basic(jsondict)
-        if "Binary" == resource_type:
+        if "binary" == resource_type_lower:
             from . import binary
             return binary.Binary(jsondict)
-        if "BiologicallyDerivedProduct" == resource_type:
+        if "biologicallyderivedproduct" == resource_type_lower:
             from . import biologicallyderivedproduct
             return biologicallyderivedproduct.BiologicallyDerivedProduct(jsondict)
-        if "BiologicallyDerivedProductCollection" == resource_type:
+        if "biologicallyderivedproductcollection" == resource_type_lower:
             from . import biologicallyderivedproduct
             return biologicallyderivedproduct.BiologicallyDerivedProductCollection(jsondict)
-        if "BiologicallyDerivedProductManipulation" == resource_type:
+        if "biologicallyderivedproductmanipulation" == resource_type_lower:
             from . import biologicallyderivedproduct
             return biologicallyderivedproduct.BiologicallyDerivedProductManipulation(jsondict)
-        if "BiologicallyDerivedProductProcessing" == resource_type:
+        if "biologicallyderivedproductprocessing" == resource_type_lower:
             from . import biologicallyderivedproduct
             return biologicallyderivedproduct.BiologicallyDerivedProductProcessing(jsondict)
-        if "BiologicallyDerivedProductStorage" == resource_type:
+        if "biologicallyderivedproductstorage" == resource_type_lower:
             from . import biologicallyderivedproduct
             return biologicallyderivedproduct.BiologicallyDerivedProductStorage(jsondict)
-        if "BodyStructure" == resource_type:
+        if "bodystructure" == resource_type_lower:
             from . import bodystructure
             return bodystructure.BodyStructure(jsondict)
-        if "Bundle" == resource_type:
+        if "bundle" == resource_type_lower:
             from . import bundle
             return bundle.Bundle(jsondict)
-        if "BundleEntry" == resource_type:
+        if "bundleentry" == resource_type_lower:
             from . import bundle
             return bundle.BundleEntry(jsondict)
-        if "BundleEntryRequest" == resource_type:
+        if "bundleentryrequest" == resource_type_lower:
             from . import bundle
             return bundle.BundleEntryRequest(jsondict)
-        if "BundleEntryResponse" == resource_type:
+        if "bundleentryresponse" == resource_type_lower:
             from . import bundle
             return bundle.BundleEntryResponse(jsondict)
-        if "BundleEntrySearch" == resource_type:
+        if "bundleentrysearch" == resource_type_lower:
             from . import bundle
             return bundle.BundleEntrySearch(jsondict)
-        if "BundleLink" == resource_type:
+        if "bundlelink" == resource_type_lower:
             from . import bundle
             return bundle.BundleLink(jsondict)
-        if "CapabilityStatement" == resource_type:
+        if "capabilitystatement" == resource_type_lower:
             from . import capabilitystatement
             return capabilitystatement.CapabilityStatement(jsondict)
-        if "CapabilityStatementDocument" == resource_type:
+        if "capabilitystatementdocument" == resource_type_lower:
             from . import capabilitystatement
             return capabilitystatement.CapabilityStatementDocument(jsondict)
-        if "CapabilityStatementImplementation" == resource_type:
+        if "capabilitystatementimplementation" == resource_type_lower:
             from . import capabilitystatement
             return capabilitystatement.CapabilityStatementImplementation(jsondict)
-        if "CapabilityStatementMessaging" == resource_type:
+        if "capabilitystatementmessaging" == resource_type_lower:
             from . import capabilitystatement
             return capabilitystatement.CapabilityStatementMessaging(jsondict)
-        if "CapabilityStatementMessagingEndpoint" == resource_type:
+        if "capabilitystatementmessagingendpoint" == resource_type_lower:
             from . import capabilitystatement
             return capabilitystatement.CapabilityStatementMessagingEndpoint(jsondict)
-        if "CapabilityStatementMessagingSupportedMessage" == resource_type:
+        if "capabilitystatementmessagingsupportedmessage" == resource_type_lower:
             from . import capabilitystatement
             return capabilitystatement.CapabilityStatementMessagingSupportedMessage(jsondict)
-        if "CapabilityStatementRest" == resource_type:
+        if "capabilitystatementrest" == resource_type_lower:
             from . import capabilitystatement
             return capabilitystatement.CapabilityStatementRest(jsondict)
-        if "CapabilityStatementRestInteraction" == resource_type:
+        if "capabilitystatementrestinteraction" == resource_type_lower:
             from . import capabilitystatement
             return capabilitystatement.CapabilityStatementRestInteraction(jsondict)
-        if "CapabilityStatementRestResource" == resource_type:
+        if "capabilitystatementrestresource" == resource_type_lower:
             from . import capabilitystatement
             return capabilitystatement.CapabilityStatementRestResource(jsondict)
-        if "CapabilityStatementRestResourceInteraction" == resource_type:
+        if "capabilitystatementrestresourceinteraction" == resource_type_lower:
             from . import capabilitystatement
             return capabilitystatement.CapabilityStatementRestResourceInteraction(jsondict)
-        if "CapabilityStatementRestResourceOperation" == resource_type:
+        if "capabilitystatementrestresourceoperation" == resource_type_lower:
             from . import capabilitystatement
             return capabilitystatement.CapabilityStatementRestResourceOperation(jsondict)
-        if "CapabilityStatementRestResourceSearchParam" == resource_type:
+        if "capabilitystatementrestresourcesearchparam" == resource_type_lower:
             from . import capabilitystatement
             return capabilitystatement.CapabilityStatementRestResourceSearchParam(jsondict)
-        if "CapabilityStatementRestSecurity" == resource_type:
+        if "capabilitystatementrestsecurity" == resource_type_lower:
             from . import capabilitystatement
             return capabilitystatement.CapabilityStatementRestSecurity(jsondict)
-        if "CapabilityStatementSoftware" == resource_type:
+        if "capabilitystatementsoftware" == resource_type_lower:
             from . import capabilitystatement
             return capabilitystatement.CapabilityStatementSoftware(jsondict)
-        if "CarePlan" == resource_type:
+        if "careplan" == resource_type_lower:
             from . import careplan
             return careplan.CarePlan(jsondict)
-        if "CarePlanActivity" == resource_type:
+        if "careplanactivity" == resource_type_lower:
             from . import careplan
             return careplan.CarePlanActivity(jsondict)
-        if "CarePlanActivityDetail" == resource_type:
+        if "careplanactivitydetail" == resource_type_lower:
             from . import careplan
             return careplan.CarePlanActivityDetail(jsondict)
-        if "CareTeam" == resource_type:
+        if "careteam" == resource_type_lower:
             from . import careteam
             return careteam.CareTeam(jsondict)
-        if "CareTeamParticipant" == resource_type:
+        if "careteamparticipant" == resource_type_lower:
             from . import careteam
             return careteam.CareTeamParticipant(jsondict)
-        if "CatalogEntry" == resource_type:
+        if "catalogentry" == resource_type_lower:
             from . import catalogentry
             return catalogentry.CatalogEntry(jsondict)
-        if "CatalogEntryRelatedEntry" == resource_type:
+        if "catalogentryrelatedentry" == resource_type_lower:
             from . import catalogentry
             return catalogentry.CatalogEntryRelatedEntry(jsondict)
-        if "ChargeItem" == resource_type:
+        if "chargeitem" == resource_type_lower:
             from . import chargeitem
             return chargeitem.ChargeItem(jsondict)
-        if "ChargeItemDefinition" == resource_type:
+        if "chargeitemdefinition" == resource_type_lower:
             from . import chargeitemdefinition
             return chargeitemdefinition.ChargeItemDefinition(jsondict)
-        if "ChargeItemDefinitionApplicability" == resource_type:
+        if "chargeitemdefinitionapplicability" == resource_type_lower:
             from . import chargeitemdefinition
             return chargeitemdefinition.ChargeItemDefinitionApplicability(jsondict)
-        if "ChargeItemDefinitionPropertyGroup" == resource_type:
+        if "chargeitemdefinitionpropertygroup" == resource_type_lower:
             from . import chargeitemdefinition
             return chargeitemdefinition.ChargeItemDefinitionPropertyGroup(jsondict)
-        if "ChargeItemDefinitionPropertyGroupPriceComponent" == resource_type:
+        if "chargeitemdefinitionpropertygrouppricecomponent" == resource_type_lower:
             from . import chargeitemdefinition
             return chargeitemdefinition.ChargeItemDefinitionPropertyGroupPriceComponent(jsondict)
-        if "ChargeItemPerformer" == resource_type:
+        if "chargeitemperformer" == resource_type_lower:
             from . import chargeitem
             return chargeitem.ChargeItemPerformer(jsondict)
-        if "Claim" == resource_type:
+        if "claim" == resource_type_lower:
             from . import claim
             return claim.Claim(jsondict)
-        if "ClaimAccident" == resource_type:
+        if "claimaccident" == resource_type_lower:
             from . import claim
             return claim.ClaimAccident(jsondict)
-        if "ClaimCareTeam" == resource_type:
+        if "claimcareteam" == resource_type_lower:
             from . import claim
             return claim.ClaimCareTeam(jsondict)
-        if "ClaimDiagnosis" == resource_type:
+        if "claimdiagnosis" == resource_type_lower:
             from . import claim
             return claim.ClaimDiagnosis(jsondict)
-        if "ClaimInsurance" == resource_type:
+        if "claiminsurance" == resource_type_lower:
             from . import claim
             return claim.ClaimInsurance(jsondict)
-        if "ClaimItem" == resource_type:
+        if "claimitem" == resource_type_lower:
             from . import claim
             return claim.ClaimItem(jsondict)
-        if "ClaimItemDetail" == resource_type:
+        if "claimitemdetail" == resource_type_lower:
             from . import claim
             return claim.ClaimItemDetail(jsondict)
-        if "ClaimItemDetailSubDetail" == resource_type:
+        if "claimitemdetailsubdetail" == resource_type_lower:
             from . import claim
             return claim.ClaimItemDetailSubDetail(jsondict)
-        if "ClaimPayee" == resource_type:
+        if "claimpayee" == resource_type_lower:
             from . import claim
             return claim.ClaimPayee(jsondict)
-        if "ClaimProcedure" == resource_type:
+        if "claimprocedure" == resource_type_lower:
             from . import claim
             return claim.ClaimProcedure(jsondict)
-        if "ClaimRelated" == resource_type:
+        if "claimrelated" == resource_type_lower:
             from . import claim
             return claim.ClaimRelated(jsondict)
-        if "ClaimResponse" == resource_type:
+        if "claimresponse" == resource_type_lower:
             from . import claimresponse
             return claimresponse.ClaimResponse(jsondict)
-        if "ClaimResponseAddItem" == resource_type:
+        if "claimresponseadditem" == resource_type_lower:
             from . import claimresponse
             return claimresponse.ClaimResponseAddItem(jsondict)
-        if "ClaimResponseAddItemDetail" == resource_type:
+        if "claimresponseadditemdetail" == resource_type_lower:
             from . import claimresponse
             return claimresponse.ClaimResponseAddItemDetail(jsondict)
-        if "ClaimResponseAddItemDetailSubDetail" == resource_type:
+        if "claimresponseadditemdetailsubdetail" == resource_type_lower:
             from . import claimresponse
             return claimresponse.ClaimResponseAddItemDetailSubDetail(jsondict)
-        if "ClaimResponseError" == resource_type:
+        if "claimresponseerror" == resource_type_lower:
             from . import claimresponse
             return claimresponse.ClaimResponseError(jsondict)
-        if "ClaimResponseInsurance" == resource_type:
+        if "claimresponseinsurance" == resource_type_lower:
             from . import claimresponse
             return claimresponse.ClaimResponseInsurance(jsondict)
-        if "ClaimResponseItem" == resource_type:
+        if "claimresponseitem" == resource_type_lower:
             from . import claimresponse
             return claimresponse.ClaimResponseItem(jsondict)
-        if "ClaimResponseItemAdjudication" == resource_type:
+        if "claimresponseitemadjudication" == resource_type_lower:
             from . import claimresponse
             return claimresponse.ClaimResponseItemAdjudication(jsondict)
-        if "ClaimResponseItemDetail" == resource_type:
+        if "claimresponseitemdetail" == resource_type_lower:
             from . import claimresponse
             return claimresponse.ClaimResponseItemDetail(jsondict)
-        if "ClaimResponseItemDetailSubDetail" == resource_type:
+        if "claimresponseitemdetailsubdetail" == resource_type_lower:
             from . import claimresponse
             return claimresponse.ClaimResponseItemDetailSubDetail(jsondict)
-        if "ClaimResponsePayment" == resource_type:
+        if "claimresponsepayment" == resource_type_lower:
             from . import claimresponse
             return claimresponse.ClaimResponsePayment(jsondict)
-        if "ClaimResponseProcessNote" == resource_type:
+        if "claimresponseprocessnote" == resource_type_lower:
             from . import claimresponse
             return claimresponse.ClaimResponseProcessNote(jsondict)
-        if "ClaimResponseTotal" == resource_type:
+        if "claimresponsetotal" == resource_type_lower:
             from . import claimresponse
             return claimresponse.ClaimResponseTotal(jsondict)
-        if "ClaimSupportingInfo" == resource_type:
+        if "claimsupportinginfo" == resource_type_lower:
             from . import claim
             return claim.ClaimSupportingInfo(jsondict)
-        if "ClinicalImpression" == resource_type:
+        if "clinicalimpression" == resource_type_lower:
             from . import clinicalimpression
             return clinicalimpression.ClinicalImpression(jsondict)
-        if "ClinicalImpressionFinding" == resource_type:
+        if "clinicalimpressionfinding" == resource_type_lower:
             from . import clinicalimpression
             return clinicalimpression.ClinicalImpressionFinding(jsondict)
-        if "ClinicalImpressionInvestigation" == resource_type:
+        if "clinicalimpressioninvestigation" == resource_type_lower:
             from . import clinicalimpression
             return clinicalimpression.ClinicalImpressionInvestigation(jsondict)
-        if "CodeSystem" == resource_type:
+        if "codesystem" == resource_type_lower:
             from . import codesystem
             return codesystem.CodeSystem(jsondict)
-        if "CodeSystemConcept" == resource_type:
+        if "codesystemconcept" == resource_type_lower:
             from . import codesystem
             return codesystem.CodeSystemConcept(jsondict)
-        if "CodeSystemConceptDesignation" == resource_type:
+        if "codesystemconceptdesignation" == resource_type_lower:
             from . import codesystem
             return codesystem.CodeSystemConceptDesignation(jsondict)
-        if "CodeSystemConceptProperty" == resource_type:
+        if "codesystemconceptproperty" == resource_type_lower:
             from . import codesystem
             return codesystem.CodeSystemConceptProperty(jsondict)
-        if "CodeSystemFilter" == resource_type:
+        if "codesystemfilter" == resource_type_lower:
             from . import codesystem
             return codesystem.CodeSystemFilter(jsondict)
-        if "CodeSystemProperty" == resource_type:
+        if "codesystemproperty" == resource_type_lower:
             from . import codesystem
             return codesystem.CodeSystemProperty(jsondict)
-        if "CodeableConcept" == resource_type:
+        if "codeableconcept" == resource_type_lower:
             from . import codeableconcept
             return codeableconcept.CodeableConcept(jsondict)
-        if "Coding" == resource_type:
+        if "coding" == resource_type_lower:
             from . import coding
             return coding.Coding(jsondict)
-        if "Communication" == resource_type:
+        if "communication" == resource_type_lower:
             from . import communication
             return communication.Communication(jsondict)
-        if "CommunicationPayload" == resource_type:
+        if "communicationpayload" == resource_type_lower:
             from . import communication
             return communication.CommunicationPayload(jsondict)
-        if "CommunicationRequest" == resource_type:
+        if "communicationrequest" == resource_type_lower:
             from . import communicationrequest
             return communicationrequest.CommunicationRequest(jsondict)
-        if "CommunicationRequestPayload" == resource_type:
+        if "communicationrequestpayload" == resource_type_lower:
             from . import communicationrequest
             return communicationrequest.CommunicationRequestPayload(jsondict)
-        if "CompartmentDefinition" == resource_type:
+        if "compartmentdefinition" == resource_type_lower:
             from . import compartmentdefinition
             return compartmentdefinition.CompartmentDefinition(jsondict)
-        if "CompartmentDefinitionResource" == resource_type:
+        if "compartmentdefinitionresource" == resource_type_lower:
             from . import compartmentdefinition
             return compartmentdefinition.CompartmentDefinitionResource(jsondict)
-        if "Composition" == resource_type:
+        if "composition" == resource_type_lower:
             from . import composition
             return composition.Composition(jsondict)
-        if "CompositionAttester" == resource_type:
+        if "compositionattester" == resource_type_lower:
             from . import composition
             return composition.CompositionAttester(jsondict)
-        if "CompositionEvent" == resource_type:
+        if "compositionevent" == resource_type_lower:
             from . import composition
             return composition.CompositionEvent(jsondict)
-        if "CompositionRelatesTo" == resource_type:
+        if "compositionrelatesto" == resource_type_lower:
             from . import composition
             return composition.CompositionRelatesTo(jsondict)
-        if "CompositionSection" == resource_type:
+        if "compositionsection" == resource_type_lower:
             from . import composition
             return composition.CompositionSection(jsondict)
-        if "ConceptMap" == resource_type:
+        if "conceptmap" == resource_type_lower:
             from . import conceptmap
             return conceptmap.ConceptMap(jsondict)
-        if "ConceptMapGroup" == resource_type:
+        if "conceptmapgroup" == resource_type_lower:
             from . import conceptmap
             return conceptmap.ConceptMapGroup(jsondict)
-        if "ConceptMapGroupElement" == resource_type:
+        if "conceptmapgroupelement" == resource_type_lower:
             from . import conceptmap
             return conceptmap.ConceptMapGroupElement(jsondict)
-        if "ConceptMapGroupElementTarget" == resource_type:
+        if "conceptmapgroupelementtarget" == resource_type_lower:
             from . import conceptmap
             return conceptmap.ConceptMapGroupElementTarget(jsondict)
-        if "ConceptMapGroupElementTargetDependsOn" == resource_type:
+        if "conceptmapgroupelementtargetdependson" == resource_type_lower:
             from . import conceptmap
             return conceptmap.ConceptMapGroupElementTargetDependsOn(jsondict)
-        if "ConceptMapGroupUnmapped" == resource_type:
+        if "conceptmapgroupunmapped" == resource_type_lower:
             from . import conceptmap
             return conceptmap.ConceptMapGroupUnmapped(jsondict)
-        if "Condition" == resource_type:
+        if "condition" == resource_type_lower:
             from . import condition
             return condition.Condition(jsondict)
-        if "ConditionEvidence" == resource_type:
+        if "conditionevidence" == resource_type_lower:
             from . import condition
             return condition.ConditionEvidence(jsondict)
-        if "ConditionStage" == resource_type:
+        if "conditionstage" == resource_type_lower:
             from . import condition
             return condition.ConditionStage(jsondict)
-        if "Consent" == resource_type:
+        if "consent" == resource_type_lower:
             from . import consent
             return consent.Consent(jsondict)
-        if "ConsentPolicy" == resource_type:
+        if "consentpolicy" == resource_type_lower:
             from . import consent
             return consent.ConsentPolicy(jsondict)
-        if "ConsentProvision" == resource_type:
+        if "consentprovision" == resource_type_lower:
             from . import consent
             return consent.ConsentProvision(jsondict)
-        if "ConsentProvisionActor" == resource_type:
+        if "consentprovisionactor" == resource_type_lower:
             from . import consent
             return consent.ConsentProvisionActor(jsondict)
-        if "ConsentProvisionData" == resource_type:
+        if "consentprovisiondata" == resource_type_lower:
             from . import consent
             return consent.ConsentProvisionData(jsondict)
-        if "ConsentVerification" == resource_type:
+        if "consentverification" == resource_type_lower:
             from . import consent
             return consent.ConsentVerification(jsondict)
-        if "ContactDetail" == resource_type:
+        if "contactdetail" == resource_type_lower:
             from . import contactdetail
             return contactdetail.ContactDetail(jsondict)
-        if "ContactPoint" == resource_type:
+        if "contactpoint" == resource_type_lower:
             from . import contactpoint
             return contactpoint.ContactPoint(jsondict)
-        if "Contract" == resource_type:
+        if "contract" == resource_type_lower:
             from . import contract
             return contract.Contract(jsondict)
-        if "ContractContentDefinition" == resource_type:
+        if "contractcontentdefinition" == resource_type_lower:
             from . import contract
             return contract.ContractContentDefinition(jsondict)
-        if "ContractFriendly" == resource_type:
+        if "contractfriendly" == resource_type_lower:
             from . import contract
             return contract.ContractFriendly(jsondict)
-        if "ContractLegal" == resource_type:
+        if "contractlegal" == resource_type_lower:
             from . import contract
             return contract.ContractLegal(jsondict)
-        if "ContractRule" == resource_type:
+        if "contractrule" == resource_type_lower:
             from . import contract
             return contract.ContractRule(jsondict)
-        if "ContractSigner" == resource_type:
+        if "contractsigner" == resource_type_lower:
             from . import contract
             return contract.ContractSigner(jsondict)
-        if "ContractTerm" == resource_type:
+        if "contractterm" == resource_type_lower:
             from . import contract
             return contract.ContractTerm(jsondict)
-        if "ContractTermAction" == resource_type:
+        if "contracttermaction" == resource_type_lower:
             from . import contract
             return contract.ContractTermAction(jsondict)
-        if "ContractTermActionSubject" == resource_type:
+        if "contracttermactionsubject" == resource_type_lower:
             from . import contract
             return contract.ContractTermActionSubject(jsondict)
-        if "ContractTermAsset" == resource_type:
+        if "contracttermasset" == resource_type_lower:
             from . import contract
             return contract.ContractTermAsset(jsondict)
-        if "ContractTermAssetContext" == resource_type:
+        if "contracttermassetcontext" == resource_type_lower:
             from . import contract
             return contract.ContractTermAssetContext(jsondict)
-        if "ContractTermAssetValuedItem" == resource_type:
+        if "contracttermassetvalueditem" == resource_type_lower:
             from . import contract
             return contract.ContractTermAssetValuedItem(jsondict)
-        if "ContractTermOffer" == resource_type:
+        if "contracttermoffer" == resource_type_lower:
             from . import contract
             return contract.ContractTermOffer(jsondict)
-        if "ContractTermOfferAnswer" == resource_type:
+        if "contracttermofferanswer" == resource_type_lower:
             from . import contract
             return contract.ContractTermOfferAnswer(jsondict)
-        if "ContractTermOfferParty" == resource_type:
+        if "contracttermofferparty" == resource_type_lower:
             from . import contract
             return contract.ContractTermOfferParty(jsondict)
-        if "ContractTermSecurityLabel" == resource_type:
+        if "contracttermsecuritylabel" == resource_type_lower:
             from . import contract
             return contract.ContractTermSecurityLabel(jsondict)
-        if "Contributor" == resource_type:
+        if "contributor" == resource_type_lower:
             from . import contributor
             return contributor.Contributor(jsondict)
-        if "Count" == resource_type:
+        if "count" == resource_type_lower:
             from . import count
             return count.Count(jsondict)
-        if "Coverage" == resource_type:
+        if "coverage" == resource_type_lower:
             from . import coverage
             return coverage.Coverage(jsondict)
-        if "CoverageClass" == resource_type:
+        if "coverageclass" == resource_type_lower:
             from . import coverage
             return coverage.CoverageClass(jsondict)
-        if "CoverageCostToBeneficiary" == resource_type:
+        if "coveragecosttobeneficiary" == resource_type_lower:
             from . import coverage
             return coverage.CoverageCostToBeneficiary(jsondict)
-        if "CoverageCostToBeneficiaryException" == resource_type:
+        if "coveragecosttobeneficiaryexception" == resource_type_lower:
             from . import coverage
             return coverage.CoverageCostToBeneficiaryException(jsondict)
-        if "CoverageEligibilityRequest" == resource_type:
+        if "coverageeligibilityrequest" == resource_type_lower:
             from . import coverageeligibilityrequest
             return coverageeligibilityrequest.CoverageEligibilityRequest(jsondict)
-        if "CoverageEligibilityRequestInsurance" == resource_type:
+        if "coverageeligibilityrequestinsurance" == resource_type_lower:
             from . import coverageeligibilityrequest
             return coverageeligibilityrequest.CoverageEligibilityRequestInsurance(jsondict)
-        if "CoverageEligibilityRequestItem" == resource_type:
+        if "coverageeligibilityrequestitem" == resource_type_lower:
             from . import coverageeligibilityrequest
             return coverageeligibilityrequest.CoverageEligibilityRequestItem(jsondict)
-        if "CoverageEligibilityRequestItemDiagnosis" == resource_type:
+        if "coverageeligibilityrequestitemdiagnosis" == resource_type_lower:
             from . import coverageeligibilityrequest
             return coverageeligibilityrequest.CoverageEligibilityRequestItemDiagnosis(jsondict)
-        if "CoverageEligibilityRequestSupportingInfo" == resource_type:
+        if "coverageeligibilityrequestsupportinginfo" == resource_type_lower:
             from . import coverageeligibilityrequest
             return coverageeligibilityrequest.CoverageEligibilityRequestSupportingInfo(jsondict)
-        if "CoverageEligibilityResponse" == resource_type:
+        if "coverageeligibilityresponse" == resource_type_lower:
             from . import coverageeligibilityresponse
             return coverageeligibilityresponse.CoverageEligibilityResponse(jsondict)
-        if "CoverageEligibilityResponseError" == resource_type:
+        if "coverageeligibilityresponseerror" == resource_type_lower:
             from . import coverageeligibilityresponse
             return coverageeligibilityresponse.CoverageEligibilityResponseError(jsondict)
-        if "CoverageEligibilityResponseInsurance" == resource_type:
+        if "coverageeligibilityresponseinsurance" == resource_type_lower:
             from . import coverageeligibilityresponse
             return coverageeligibilityresponse.CoverageEligibilityResponseInsurance(jsondict)
-        if "CoverageEligibilityResponseInsuranceItem" == resource_type:
+        if "coverageeligibilityresponseinsuranceitem" == resource_type_lower:
             from . import coverageeligibilityresponse
             return coverageeligibilityresponse.CoverageEligibilityResponseInsuranceItem(jsondict)
-        if "CoverageEligibilityResponseInsuranceItemBenefit" == resource_type:
+        if "coverageeligibilityresponseinsuranceitembenefit" == resource_type_lower:
             from . import coverageeligibilityresponse
             return coverageeligibilityresponse.CoverageEligibilityResponseInsuranceItemBenefit(jsondict)
-        if "DataRequirement" == resource_type:
+        if "datarequirement" == resource_type_lower:
             from . import datarequirement
             return datarequirement.DataRequirement(jsondict)
-        if "DataRequirementCodeFilter" == resource_type:
+        if "datarequirementcodefilter" == resource_type_lower:
             from . import datarequirement
             return datarequirement.DataRequirementCodeFilter(jsondict)
-        if "DataRequirementDateFilter" == resource_type:
+        if "datarequirementdatefilter" == resource_type_lower:
             from . import datarequirement
             return datarequirement.DataRequirementDateFilter(jsondict)
-        if "DataRequirementSort" == resource_type:
+        if "datarequirementsort" == resource_type_lower:
             from . import datarequirement
             return datarequirement.DataRequirementSort(jsondict)
-        if "DetectedIssue" == resource_type:
+        if "detectedissue" == resource_type_lower:
             from . import detectedissue
             return detectedissue.DetectedIssue(jsondict)
-        if "DetectedIssueEvidence" == resource_type:
+        if "detectedissueevidence" == resource_type_lower:
             from . import detectedissue
             return detectedissue.DetectedIssueEvidence(jsondict)
-        if "DetectedIssueMitigation" == resource_type:
+        if "detectedissuemitigation" == resource_type_lower:
             from . import detectedissue
             return detectedissue.DetectedIssueMitigation(jsondict)
-        if "Device" == resource_type:
+        if "device" == resource_type_lower:
             from . import device
             return device.Device(jsondict)
-        if "DeviceDefinition" == resource_type:
+        if "devicedefinition" == resource_type_lower:
             from . import devicedefinition
             return devicedefinition.DeviceDefinition(jsondict)
-        if "DeviceDefinitionCapability" == resource_type:
+        if "devicedefinitioncapability" == resource_type_lower:
             from . import devicedefinition
             return devicedefinition.DeviceDefinitionCapability(jsondict)
-        if "DeviceDefinitionDeviceName" == resource_type:
+        if "devicedefinitiondevicename" == resource_type_lower:
             from . import devicedefinition
             return devicedefinition.DeviceDefinitionDeviceName(jsondict)
-        if "DeviceDefinitionMaterial" == resource_type:
+        if "devicedefinitionmaterial" == resource_type_lower:
             from . import devicedefinition
             return devicedefinition.DeviceDefinitionMaterial(jsondict)
-        if "DeviceDefinitionProperty" == resource_type:
+        if "devicedefinitionproperty" == resource_type_lower:
             from . import devicedefinition
             return devicedefinition.DeviceDefinitionProperty(jsondict)
-        if "DeviceDefinitionSpecialization" == resource_type:
+        if "devicedefinitionspecialization" == resource_type_lower:
             from . import devicedefinition
             return devicedefinition.DeviceDefinitionSpecialization(jsondict)
-        if "DeviceDefinitionUdiDeviceIdentifier" == resource_type:
+        if "devicedefinitionudideviceidentifier" == resource_type_lower:
             from . import devicedefinition
             return devicedefinition.DeviceDefinitionUdiDeviceIdentifier(jsondict)
-        if "DeviceDeviceName" == resource_type:
+        if "devicedevicename" == resource_type_lower:
             from . import device
             return device.DeviceDeviceName(jsondict)
-        if "DeviceMetric" == resource_type:
+        if "devicemetric" == resource_type_lower:
             from . import devicemetric
             return devicemetric.DeviceMetric(jsondict)
-        if "DeviceMetricCalibration" == resource_type:
+        if "devicemetriccalibration" == resource_type_lower:
             from . import devicemetric
             return devicemetric.DeviceMetricCalibration(jsondict)
-        if "DeviceProperty" == resource_type:
+        if "deviceproperty" == resource_type_lower:
             from . import device
             return device.DeviceProperty(jsondict)
-        if "DeviceRequest" == resource_type:
+        if "devicerequest" == resource_type_lower:
             from . import devicerequest
             return devicerequest.DeviceRequest(jsondict)
-        if "DeviceRequestParameter" == resource_type:
+        if "devicerequestparameter" == resource_type_lower:
             from . import devicerequest
             return devicerequest.DeviceRequestParameter(jsondict)
-        if "DeviceSpecialization" == resource_type:
+        if "devicespecialization" == resource_type_lower:
             from . import device
             return device.DeviceSpecialization(jsondict)
-        if "DeviceUdiCarrier" == resource_type:
+        if "deviceudicarrier" == resource_type_lower:
             from . import device
             return device.DeviceUdiCarrier(jsondict)
-        if "DeviceUseStatement" == resource_type:
+        if "deviceusestatement" == resource_type_lower:
             from . import deviceusestatement
             return deviceusestatement.DeviceUseStatement(jsondict)
-        if "DeviceVersion" == resource_type:
+        if "deviceversion" == resource_type_lower:
             from . import device
             return device.DeviceVersion(jsondict)
-        if "DiagnosticReport" == resource_type:
+        if "diagnosticreport" == resource_type_lower:
             from . import diagnosticreport
             return diagnosticreport.DiagnosticReport(jsondict)
-        if "DiagnosticReportMedia" == resource_type:
+        if "diagnosticreportmedia" == resource_type_lower:
             from . import diagnosticreport
             return diagnosticreport.DiagnosticReportMedia(jsondict)
-        if "Distance" == resource_type:
+        if "distance" == resource_type_lower:
             from . import distance
             return distance.Distance(jsondict)
-        if "DocumentManifest" == resource_type:
+        if "documentmanifest" == resource_type_lower:
             from . import documentmanifest
             return documentmanifest.DocumentManifest(jsondict)
-        if "DocumentManifestRelated" == resource_type:
+        if "documentmanifestrelated" == resource_type_lower:
             from . import documentmanifest
             return documentmanifest.DocumentManifestRelated(jsondict)
-        if "DocumentReference" == resource_type:
+        if "documentreference" == resource_type_lower:
             from . import documentreference
             return documentreference.DocumentReference(jsondict)
-        if "DocumentReferenceContent" == resource_type:
+        if "documentreferencecontent" == resource_type_lower:
             from . import documentreference
             return documentreference.DocumentReferenceContent(jsondict)
-        if "DocumentReferenceContext" == resource_type:
+        if "documentreferencecontext" == resource_type_lower:
             from . import documentreference
             return documentreference.DocumentReferenceContext(jsondict)
-        if "DocumentReferenceRelatesTo" == resource_type:
+        if "documentreferencerelatesto" == resource_type_lower:
             from . import documentreference
             return documentreference.DocumentReferenceRelatesTo(jsondict)
-        if "DomainResource" == resource_type:
+        if "domainresource" == resource_type_lower:
             from . import domainresource
             return domainresource.DomainResource(jsondict)
-        if "Dosage" == resource_type:
+        if "dosage" == resource_type_lower:
             from . import dosage
             return dosage.Dosage(jsondict)
-        if "DosageDoseAndRate" == resource_type:
+        if "dosagedoseandrate" == resource_type_lower:
             from . import dosage
             return dosage.DosageDoseAndRate(jsondict)
-        if "Duration" == resource_type:
+        if "duration" == resource_type_lower:
             from . import duration
             return duration.Duration(jsondict)
-        if "EffectEvidenceSynthesis" == resource_type:
+        if "effectevidencesynthesis" == resource_type_lower:
             from . import effectevidencesynthesis
             return effectevidencesynthesis.EffectEvidenceSynthesis(jsondict)
-        if "EffectEvidenceSynthesisCertainty" == resource_type:
+        if "effectevidencesynthesiscertainty" == resource_type_lower:
             from . import effectevidencesynthesis
             return effectevidencesynthesis.EffectEvidenceSynthesisCertainty(jsondict)
-        if "EffectEvidenceSynthesisCertaintyCertaintySubcomponent" == resource_type:
+        if "effectevidencesynthesiscertaintycertaintysubcomponent" == resource_type_lower:
             from . import effectevidencesynthesis
             return effectevidencesynthesis.EffectEvidenceSynthesisCertaintyCertaintySubcomponent(jsondict)
-        if "EffectEvidenceSynthesisEffectEstimate" == resource_type:
+        if "effectevidencesynthesiseffectestimate" == resource_type_lower:
             from . import effectevidencesynthesis
             return effectevidencesynthesis.EffectEvidenceSynthesisEffectEstimate(jsondict)
-        if "EffectEvidenceSynthesisEffectEstimatePrecisionEstimate" == resource_type:
+        if "effectevidencesynthesiseffectestimateprecisionestimate" == resource_type_lower:
             from . import effectevidencesynthesis
             return effectevidencesynthesis.EffectEvidenceSynthesisEffectEstimatePrecisionEstimate(jsondict)
-        if "EffectEvidenceSynthesisResultsByExposure" == resource_type:
+        if "effectevidencesynthesisresultsbyexposure" == resource_type_lower:
             from . import effectevidencesynthesis
             return effectevidencesynthesis.EffectEvidenceSynthesisResultsByExposure(jsondict)
-        if "EffectEvidenceSynthesisSampleSize" == resource_type:
+        if "effectevidencesynthesissamplesize" == resource_type_lower:
             from . import effectevidencesynthesis
             return effectevidencesynthesis.EffectEvidenceSynthesisSampleSize(jsondict)
-        if "Element" == resource_type:
+        if "element" == resource_type_lower:
             from . import element
             return element.Element(jsondict)
-        if "ElementDefinition" == resource_type:
+        if "elementdefinition" == resource_type_lower:
             from . import elementdefinition
             return elementdefinition.ElementDefinition(jsondict)
-        if "ElementDefinitionBase" == resource_type:
+        if "elementdefinitionbase" == resource_type_lower:
             from . import elementdefinition
             return elementdefinition.ElementDefinitionBase(jsondict)
-        if "ElementDefinitionBinding" == resource_type:
+        if "elementdefinitionbinding" == resource_type_lower:
             from . import elementdefinition
             return elementdefinition.ElementDefinitionBinding(jsondict)
-        if "ElementDefinitionConstraint" == resource_type:
+        if "elementdefinitionconstraint" == resource_type_lower:
             from . import elementdefinition
             return elementdefinition.ElementDefinitionConstraint(jsondict)
-        if "ElementDefinitionExample" == resource_type:
+        if "elementdefinitionexample" == resource_type_lower:
             from . import elementdefinition
             return elementdefinition.ElementDefinitionExample(jsondict)
-        if "ElementDefinitionMapping" == resource_type:
+        if "elementdefinitionmapping" == resource_type_lower:
             from . import elementdefinition
             return elementdefinition.ElementDefinitionMapping(jsondict)
-        if "ElementDefinitionSlicing" == resource_type:
+        if "elementdefinitionslicing" == resource_type_lower:
             from . import elementdefinition
             return elementdefinition.ElementDefinitionSlicing(jsondict)
-        if "ElementDefinitionSlicingDiscriminator" == resource_type:
+        if "elementdefinitionslicingdiscriminator" == resource_type_lower:
             from . import elementdefinition
             return elementdefinition.ElementDefinitionSlicingDiscriminator(jsondict)
-        if "ElementDefinitionType" == resource_type:
+        if "elementdefinitiontype" == resource_type_lower:
             from . import elementdefinition
             return elementdefinition.ElementDefinitionType(jsondict)
-        if "Encounter" == resource_type:
+        if "encounter" == resource_type_lower:
             from . import encounter
             return encounter.Encounter(jsondict)
-        if "EncounterClassHistory" == resource_type:
+        if "encounterclasshistory" == resource_type_lower:
             from . import encounter
             return encounter.EncounterClassHistory(jsondict)
-        if "EncounterDiagnosis" == resource_type:
+        if "encounterdiagnosis" == resource_type_lower:
             from . import encounter
             return encounter.EncounterDiagnosis(jsondict)
-        if "EncounterHospitalization" == resource_type:
+        if "encounterhospitalization" == resource_type_lower:
             from . import encounter
             return encounter.EncounterHospitalization(jsondict)
-        if "EncounterLocation" == resource_type:
+        if "encounterlocation" == resource_type_lower:
             from . import encounter
             return encounter.EncounterLocation(jsondict)
-        if "EncounterParticipant" == resource_type:
+        if "encounterparticipant" == resource_type_lower:
             from . import encounter
             return encounter.EncounterParticipant(jsondict)
-        if "EncounterStatusHistory" == resource_type:
+        if "encounterstatushistory" == resource_type_lower:
             from . import encounter
             return encounter.EncounterStatusHistory(jsondict)
-        if "Endpoint" == resource_type:
+        if "endpoint" == resource_type_lower:
             from . import endpoint
             return endpoint.Endpoint(jsondict)
-        if "EnrollmentRequest" == resource_type:
+        if "enrollmentrequest" == resource_type_lower:
             from . import enrollmentrequest
             return enrollmentrequest.EnrollmentRequest(jsondict)
-        if "EnrollmentResponse" == resource_type:
+        if "enrollmentresponse" == resource_type_lower:
             from . import enrollmentresponse
             return enrollmentresponse.EnrollmentResponse(jsondict)
-        if "EpisodeOfCare" == resource_type:
+        if "episodeofcare" == resource_type_lower:
             from . import episodeofcare
             return episodeofcare.EpisodeOfCare(jsondict)
-        if "EpisodeOfCareDiagnosis" == resource_type:
+        if "episodeofcarediagnosis" == resource_type_lower:
             from . import episodeofcare
             return episodeofcare.EpisodeOfCareDiagnosis(jsondict)
-        if "EpisodeOfCareStatusHistory" == resource_type:
+        if "episodeofcarestatushistory" == resource_type_lower:
             from . import episodeofcare
             return episodeofcare.EpisodeOfCareStatusHistory(jsondict)
-        if "EventDefinition" == resource_type:
+        if "eventdefinition" == resource_type_lower:
             from . import eventdefinition
             return eventdefinition.EventDefinition(jsondict)
-        if "Evidence" == resource_type:
+        if "evidence" == resource_type_lower:
             from . import evidence
             return evidence.Evidence(jsondict)
-        if "EvidenceVariable" == resource_type:
+        if "evidencevariable" == resource_type_lower:
             from . import evidencevariable
             return evidencevariable.EvidenceVariable(jsondict)
-        if "EvidenceVariableCharacteristic" == resource_type:
+        if "evidencevariablecharacteristic" == resource_type_lower:
             from . import evidencevariable
             return evidencevariable.EvidenceVariableCharacteristic(jsondict)
-        if "ExampleScenario" == resource_type:
+        if "examplescenario" == resource_type_lower:
             from . import examplescenario
             return examplescenario.ExampleScenario(jsondict)
-        if "ExampleScenarioActor" == resource_type:
+        if "examplescenarioactor" == resource_type_lower:
             from . import examplescenario
             return examplescenario.ExampleScenarioActor(jsondict)
-        if "ExampleScenarioInstance" == resource_type:
+        if "examplescenarioinstance" == resource_type_lower:
             from . import examplescenario
             return examplescenario.ExampleScenarioInstance(jsondict)
-        if "ExampleScenarioInstanceContainedInstance" == resource_type:
+        if "examplescenarioinstancecontainedinstance" == resource_type_lower:
             from . import examplescenario
             return examplescenario.ExampleScenarioInstanceContainedInstance(jsondict)
-        if "ExampleScenarioInstanceVersion" == resource_type:
+        if "examplescenarioinstanceversion" == resource_type_lower:
             from . import examplescenario
             return examplescenario.ExampleScenarioInstanceVersion(jsondict)
-        if "ExampleScenarioProcess" == resource_type:
+        if "examplescenarioprocess" == resource_type_lower:
             from . import examplescenario
             return examplescenario.ExampleScenarioProcess(jsondict)
-        if "ExampleScenarioProcessStep" == resource_type:
+        if "examplescenarioprocessstep" == resource_type_lower:
             from . import examplescenario
             return examplescenario.ExampleScenarioProcessStep(jsondict)
-        if "ExampleScenarioProcessStepAlternative" == resource_type:
+        if "examplescenarioprocessstepalternative" == resource_type_lower:
             from . import examplescenario
             return examplescenario.ExampleScenarioProcessStepAlternative(jsondict)
-        if "ExampleScenarioProcessStepOperation" == resource_type:
+        if "examplescenarioprocessstepoperation" == resource_type_lower:
             from . import examplescenario
             return examplescenario.ExampleScenarioProcessStepOperation(jsondict)
-        if "ExplanationOfBenefit" == resource_type:
+        if "explanationofbenefit" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefit(jsondict)
-        if "ExplanationOfBenefitAccident" == resource_type:
+        if "explanationofbenefitaccident" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitAccident(jsondict)
-        if "ExplanationOfBenefitAddItem" == resource_type:
+        if "explanationofbenefitadditem" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitAddItem(jsondict)
-        if "ExplanationOfBenefitAddItemDetail" == resource_type:
+        if "explanationofbenefitadditemdetail" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitAddItemDetail(jsondict)
-        if "ExplanationOfBenefitAddItemDetailSubDetail" == resource_type:
+        if "explanationofbenefitadditemdetailsubdetail" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitAddItemDetailSubDetail(jsondict)
-        if "ExplanationOfBenefitBenefitBalance" == resource_type:
+        if "explanationofbenefitbenefitbalance" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitBenefitBalance(jsondict)
-        if "ExplanationOfBenefitBenefitBalanceFinancial" == resource_type:
+        if "explanationofbenefitbenefitbalancefinancial" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitBenefitBalanceFinancial(jsondict)
-        if "ExplanationOfBenefitCareTeam" == resource_type:
+        if "explanationofbenefitcareteam" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitCareTeam(jsondict)
-        if "ExplanationOfBenefitDiagnosis" == resource_type:
+        if "explanationofbenefitdiagnosis" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitDiagnosis(jsondict)
-        if "ExplanationOfBenefitInsurance" == resource_type:
+        if "explanationofbenefitinsurance" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitInsurance(jsondict)
-        if "ExplanationOfBenefitItem" == resource_type:
+        if "explanationofbenefititem" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitItem(jsondict)
-        if "ExplanationOfBenefitItemAdjudication" == resource_type:
+        if "explanationofbenefititemadjudication" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitItemAdjudication(jsondict)
-        if "ExplanationOfBenefitItemDetail" == resource_type:
+        if "explanationofbenefititemdetail" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitItemDetail(jsondict)
-        if "ExplanationOfBenefitItemDetailSubDetail" == resource_type:
+        if "explanationofbenefititemdetailsubdetail" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitItemDetailSubDetail(jsondict)
-        if "ExplanationOfBenefitPayee" == resource_type:
+        if "explanationofbenefitpayee" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitPayee(jsondict)
-        if "ExplanationOfBenefitPayment" == resource_type:
+        if "explanationofbenefitpayment" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitPayment(jsondict)
-        if "ExplanationOfBenefitProcedure" == resource_type:
+        if "explanationofbenefitprocedure" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitProcedure(jsondict)
-        if "ExplanationOfBenefitProcessNote" == resource_type:
+        if "explanationofbenefitprocessnote" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitProcessNote(jsondict)
-        if "ExplanationOfBenefitRelated" == resource_type:
+        if "explanationofbenefitrelated" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitRelated(jsondict)
-        if "ExplanationOfBenefitSupportingInfo" == resource_type:
+        if "explanationofbenefitsupportinginfo" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitSupportingInfo(jsondict)
-        if "ExplanationOfBenefitTotal" == resource_type:
+        if "explanationofbenefittotal" == resource_type_lower:
             from . import explanationofbenefit
             return explanationofbenefit.ExplanationOfBenefitTotal(jsondict)
-        if "Expression" == resource_type:
+        if "expression" == resource_type_lower:
             from . import expression
             return expression.Expression(jsondict)
-        if "Extension" == resource_type:
+        if "extension" == resource_type_lower:
             from . import extension
             return extension.Extension(jsondict)
-        if "FamilyMemberHistory" == resource_type:
+        if "familymemberhistory" == resource_type_lower:
             from . import familymemberhistory
             return familymemberhistory.FamilyMemberHistory(jsondict)
-        if "FamilyMemberHistoryCondition" == resource_type:
+        if "familymemberhistorycondition" == resource_type_lower:
             from . import familymemberhistory
             return familymemberhistory.FamilyMemberHistoryCondition(jsondict)
-        if "Flag" == resource_type:
+        if "flag" == resource_type_lower:
             from . import flag
             return flag.Flag(jsondict)
-        if "Goal" == resource_type:
+        if "goal" == resource_type_lower:
             from . import goal
             return goal.Goal(jsondict)
-        if "GoalTarget" == resource_type:
+        if "goaltarget" == resource_type_lower:
             from . import goal
             return goal.GoalTarget(jsondict)
-        if "GraphDefinition" == resource_type:
+        if "graphdefinition" == resource_type_lower:
             from . import graphdefinition
             return graphdefinition.GraphDefinition(jsondict)
-        if "GraphDefinitionLink" == resource_type:
+        if "graphdefinitionlink" == resource_type_lower:
             from . import graphdefinition
             return graphdefinition.GraphDefinitionLink(jsondict)
-        if "GraphDefinitionLinkTarget" == resource_type:
+        if "graphdefinitionlinktarget" == resource_type_lower:
             from . import graphdefinition
             return graphdefinition.GraphDefinitionLinkTarget(jsondict)
-        if "GraphDefinitionLinkTargetCompartment" == resource_type:
+        if "graphdefinitionlinktargetcompartment" == resource_type_lower:
             from . import graphdefinition
             return graphdefinition.GraphDefinitionLinkTargetCompartment(jsondict)
-        if "Group" == resource_type:
+        if "group" == resource_type_lower:
             from . import group
             return group.Group(jsondict)
-        if "GroupCharacteristic" == resource_type:
+        if "groupcharacteristic" == resource_type_lower:
             from . import group
             return group.GroupCharacteristic(jsondict)
-        if "GroupMember" == resource_type:
+        if "groupmember" == resource_type_lower:
             from . import group
             return group.GroupMember(jsondict)
-        if "GuidanceResponse" == resource_type:
+        if "guidanceresponse" == resource_type_lower:
             from . import guidanceresponse
             return guidanceresponse.GuidanceResponse(jsondict)
-        if "HealthcareService" == resource_type:
+        if "healthcareservice" == resource_type_lower:
             from . import healthcareservice
             return healthcareservice.HealthcareService(jsondict)
-        if "HealthcareServiceAvailableTime" == resource_type:
+        if "healthcareserviceavailabletime" == resource_type_lower:
             from . import healthcareservice
             return healthcareservice.HealthcareServiceAvailableTime(jsondict)
-        if "HealthcareServiceEligibility" == resource_type:
+        if "healthcareserviceeligibility" == resource_type_lower:
             from . import healthcareservice
             return healthcareservice.HealthcareServiceEligibility(jsondict)
-        if "HealthcareServiceNotAvailable" == resource_type:
+        if "healthcareservicenotavailable" == resource_type_lower:
             from . import healthcareservice
             return healthcareservice.HealthcareServiceNotAvailable(jsondict)
-        if "HumanName" == resource_type:
+        if "humanname" == resource_type_lower:
             from . import humanname
             return humanname.HumanName(jsondict)
-        if "Identifier" == resource_type:
+        if "identifier" == resource_type_lower:
             from . import identifier
             return identifier.Identifier(jsondict)
-        if "ImagingStudy" == resource_type:
+        if "imagingstudy" == resource_type_lower:
             from . import imagingstudy
             return imagingstudy.ImagingStudy(jsondict)
-        if "ImagingStudySeries" == resource_type:
+        if "imagingstudyseries" == resource_type_lower:
             from . import imagingstudy
             return imagingstudy.ImagingStudySeries(jsondict)
-        if "ImagingStudySeriesInstance" == resource_type:
+        if "imagingstudyseriesinstance" == resource_type_lower:
             from . import imagingstudy
             return imagingstudy.ImagingStudySeriesInstance(jsondict)
-        if "ImagingStudySeriesPerformer" == resource_type:
+        if "imagingstudyseriesperformer" == resource_type_lower:
             from . import imagingstudy
             return imagingstudy.ImagingStudySeriesPerformer(jsondict)
-        if "Immunization" == resource_type:
+        if "immunization" == resource_type_lower:
             from . import immunization
             return immunization.Immunization(jsondict)
-        if "ImmunizationEducation" == resource_type:
+        if "immunizationeducation" == resource_type_lower:
             from . import immunization
             return immunization.ImmunizationEducation(jsondict)
-        if "ImmunizationEvaluation" == resource_type:
+        if "immunizationevaluation" == resource_type_lower:
             from . import immunizationevaluation
             return immunizationevaluation.ImmunizationEvaluation(jsondict)
-        if "ImmunizationPerformer" == resource_type:
+        if "immunizationperformer" == resource_type_lower:
             from . import immunization
             return immunization.ImmunizationPerformer(jsondict)
-        if "ImmunizationProtocolApplied" == resource_type:
+        if "immunizationprotocolapplied" == resource_type_lower:
             from . import immunization
             return immunization.ImmunizationProtocolApplied(jsondict)
-        if "ImmunizationReaction" == resource_type:
+        if "immunizationreaction" == resource_type_lower:
             from . import immunization
             return immunization.ImmunizationReaction(jsondict)
-        if "ImmunizationRecommendation" == resource_type:
+        if "immunizationrecommendation" == resource_type_lower:
             from . import immunizationrecommendation
             return immunizationrecommendation.ImmunizationRecommendation(jsondict)
-        if "ImmunizationRecommendationRecommendation" == resource_type:
+        if "immunizationrecommendationrecommendation" == resource_type_lower:
             from . import immunizationrecommendation
             return immunizationrecommendation.ImmunizationRecommendationRecommendation(jsondict)
-        if "ImmunizationRecommendationRecommendationDateCriterion" == resource_type:
+        if "immunizationrecommendationrecommendationdatecriterion" == resource_type_lower:
             from . import immunizationrecommendation
             return immunizationrecommendation.ImmunizationRecommendationRecommendationDateCriterion(jsondict)
-        if "ImplementationGuide" == resource_type:
+        if "implementationguide" == resource_type_lower:
             from . import implementationguide
             return implementationguide.ImplementationGuide(jsondict)
-        if "ImplementationGuideDefinition" == resource_type:
+        if "implementationguidedefinition" == resource_type_lower:
             from . import implementationguide
             return implementationguide.ImplementationGuideDefinition(jsondict)
-        if "ImplementationGuideDefinitionGrouping" == resource_type:
+        if "implementationguidedefinitiongrouping" == resource_type_lower:
             from . import implementationguide
             return implementationguide.ImplementationGuideDefinitionGrouping(jsondict)
-        if "ImplementationGuideDefinitionPage" == resource_type:
+        if "implementationguidedefinitionpage" == resource_type_lower:
             from . import implementationguide
             return implementationguide.ImplementationGuideDefinitionPage(jsondict)
-        if "ImplementationGuideDefinitionParameter" == resource_type:
+        if "implementationguidedefinitionparameter" == resource_type_lower:
             from . import implementationguide
             return implementationguide.ImplementationGuideDefinitionParameter(jsondict)
-        if "ImplementationGuideDefinitionResource" == resource_type:
+        if "implementationguidedefinitionresource" == resource_type_lower:
             from . import implementationguide
             return implementationguide.ImplementationGuideDefinitionResource(jsondict)
-        if "ImplementationGuideDefinitionTemplate" == resource_type:
+        if "implementationguidedefinitiontemplate" == resource_type_lower:
             from . import implementationguide
             return implementationguide.ImplementationGuideDefinitionTemplate(jsondict)
-        if "ImplementationGuideDependsOn" == resource_type:
+        if "implementationguidedependson" == resource_type_lower:
             from . import implementationguide
             return implementationguide.ImplementationGuideDependsOn(jsondict)
-        if "ImplementationGuideGlobal" == resource_type:
+        if "implementationguideglobal" == resource_type_lower:
             from . import implementationguide
             return implementationguide.ImplementationGuideGlobal(jsondict)
-        if "ImplementationGuideManifest" == resource_type:
+        if "implementationguidemanifest" == resource_type_lower:
             from . import implementationguide
             return implementationguide.ImplementationGuideManifest(jsondict)
-        if "ImplementationGuideManifestPage" == resource_type:
+        if "implementationguidemanifestpage" == resource_type_lower:
             from . import implementationguide
             return implementationguide.ImplementationGuideManifestPage(jsondict)
-        if "ImplementationGuideManifestResource" == resource_type:
+        if "implementationguidemanifestresource" == resource_type_lower:
             from . import implementationguide
             return implementationguide.ImplementationGuideManifestResource(jsondict)
-        if "InsurancePlan" == resource_type:
+        if "insuranceplan" == resource_type_lower:
             from . import insuranceplan
             return insuranceplan.InsurancePlan(jsondict)
-        if "InsurancePlanContact" == resource_type:
+        if "insuranceplancontact" == resource_type_lower:
             from . import insuranceplan
             return insuranceplan.InsurancePlanContact(jsondict)
-        if "InsurancePlanCoverage" == resource_type:
+        if "insuranceplancoverage" == resource_type_lower:
             from . import insuranceplan
             return insuranceplan.InsurancePlanCoverage(jsondict)
-        if "InsurancePlanCoverageBenefit" == resource_type:
+        if "insuranceplancoveragebenefit" == resource_type_lower:
             from . import insuranceplan
             return insuranceplan.InsurancePlanCoverageBenefit(jsondict)
-        if "InsurancePlanCoverageBenefitLimit" == resource_type:
+        if "insuranceplancoveragebenefitlimit" == resource_type_lower:
             from . import insuranceplan
             return insuranceplan.InsurancePlanCoverageBenefitLimit(jsondict)
-        if "InsurancePlanPlan" == resource_type:
+        if "insuranceplanplan" == resource_type_lower:
             from . import insuranceplan
             return insuranceplan.InsurancePlanPlan(jsondict)
-        if "InsurancePlanPlanGeneralCost" == resource_type:
+        if "insuranceplanplangeneralcost" == resource_type_lower:
             from . import insuranceplan
             return insuranceplan.InsurancePlanPlanGeneralCost(jsondict)
-        if "InsurancePlanPlanSpecificCost" == resource_type:
+        if "insuranceplanplanspecificcost" == resource_type_lower:
             from . import insuranceplan
             return insuranceplan.InsurancePlanPlanSpecificCost(jsondict)
-        if "InsurancePlanPlanSpecificCostBenefit" == resource_type:
+        if "insuranceplanplanspecificcostbenefit" == resource_type_lower:
             from . import insuranceplan
             return insuranceplan.InsurancePlanPlanSpecificCostBenefit(jsondict)
-        if "InsurancePlanPlanSpecificCostBenefitCost" == resource_type:
+        if "insuranceplanplanspecificcostbenefitcost" == resource_type_lower:
             from . import insuranceplan
             return insuranceplan.InsurancePlanPlanSpecificCostBenefitCost(jsondict)
-        if "Invoice" == resource_type:
+        if "invoice" == resource_type_lower:
             from . import invoice
             return invoice.Invoice(jsondict)
-        if "InvoiceLineItem" == resource_type:
+        if "invoicelineitem" == resource_type_lower:
             from . import invoice
             return invoice.InvoiceLineItem(jsondict)
-        if "InvoiceLineItemPriceComponent" == resource_type:
+        if "invoicelineitempricecomponent" == resource_type_lower:
             from . import invoice
             return invoice.InvoiceLineItemPriceComponent(jsondict)
-        if "InvoiceParticipant" == resource_type:
+        if "invoiceparticipant" == resource_type_lower:
             from . import invoice
             return invoice.InvoiceParticipant(jsondict)
-        if "Library" == resource_type:
+        if "library" == resource_type_lower:
             from . import library
             return library.Library(jsondict)
-        if "Linkage" == resource_type:
+        if "linkage" == resource_type_lower:
             from . import linkage
             return linkage.Linkage(jsondict)
-        if "LinkageItem" == resource_type:
+        if "linkageitem" == resource_type_lower:
             from . import linkage
             return linkage.LinkageItem(jsondict)
-        if "List" == resource_type:
+        if "list" == resource_type_lower:
             from . import list
             return list.List(jsondict)
-        if "ListEntry" == resource_type:
+        if "listentry" == resource_type_lower:
             from . import list
             return list.ListEntry(jsondict)
-        if "Location" == resource_type:
+        if "location" == resource_type_lower:
             from . import location
             return location.Location(jsondict)
-        if "LocationHoursOfOperation" == resource_type:
+        if "locationhoursofoperation" == resource_type_lower:
             from . import location
             return location.LocationHoursOfOperation(jsondict)
-        if "LocationPosition" == resource_type:
+        if "locationposition" == resource_type_lower:
             from . import location
             return location.LocationPosition(jsondict)
-        if "MarketingStatus" == resource_type:
+        if "marketingstatus" == resource_type_lower:
             from . import marketingstatus
             return marketingstatus.MarketingStatus(jsondict)
-        if "Measure" == resource_type:
+        if "measure" == resource_type_lower:
             from . import measure
             return measure.Measure(jsondict)
-        if "MeasureGroup" == resource_type:
+        if "measuregroup" == resource_type_lower:
             from . import measure
             return measure.MeasureGroup(jsondict)
-        if "MeasureGroupPopulation" == resource_type:
+        if "measuregrouppopulation" == resource_type_lower:
             from . import measure
             return measure.MeasureGroupPopulation(jsondict)
-        if "MeasureGroupStratifier" == resource_type:
+        if "measuregroupstratifier" == resource_type_lower:
             from . import measure
             return measure.MeasureGroupStratifier(jsondict)
-        if "MeasureGroupStratifierComponent" == resource_type:
+        if "measuregroupstratifiercomponent" == resource_type_lower:
             from . import measure
             return measure.MeasureGroupStratifierComponent(jsondict)
-        if "MeasureReport" == resource_type:
+        if "measurereport" == resource_type_lower:
             from . import measurereport
             return measurereport.MeasureReport(jsondict)
-        if "MeasureReportGroup" == resource_type:
+        if "measurereportgroup" == resource_type_lower:
             from . import measurereport
             return measurereport.MeasureReportGroup(jsondict)
-        if "MeasureReportGroupPopulation" == resource_type:
+        if "measurereportgrouppopulation" == resource_type_lower:
             from . import measurereport
             return measurereport.MeasureReportGroupPopulation(jsondict)
-        if "MeasureReportGroupStratifier" == resource_type:
+        if "measurereportgroupstratifier" == resource_type_lower:
             from . import measurereport
             return measurereport.MeasureReportGroupStratifier(jsondict)
-        if "MeasureReportGroupStratifierStratum" == resource_type:
+        if "measurereportgroupstratifierstratum" == resource_type_lower:
             from . import measurereport
             return measurereport.MeasureReportGroupStratifierStratum(jsondict)
-        if "MeasureReportGroupStratifierStratumComponent" == resource_type:
+        if "measurereportgroupstratifierstratumcomponent" == resource_type_lower:
             from . import measurereport
             return measurereport.MeasureReportGroupStratifierStratumComponent(jsondict)
-        if "MeasureReportGroupStratifierStratumPopulation" == resource_type:
+        if "measurereportgroupstratifierstratumpopulation" == resource_type_lower:
             from . import measurereport
             return measurereport.MeasureReportGroupStratifierStratumPopulation(jsondict)
-        if "MeasureSupplementalData" == resource_type:
+        if "measuresupplementaldata" == resource_type_lower:
             from . import measure
             return measure.MeasureSupplementalData(jsondict)
-        if "Media" == resource_type:
+        if "media" == resource_type_lower:
             from . import media
             return media.Media(jsondict)
-        if "Medication" == resource_type:
+        if "medication" == resource_type_lower:
             from . import medication
             return medication.Medication(jsondict)
-        if "MedicationAdministration" == resource_type:
+        if "medicationadministration" == resource_type_lower:
             from . import medicationadministration
             return medicationadministration.MedicationAdministration(jsondict)
-        if "MedicationAdministrationDosage" == resource_type:
+        if "medicationadministrationdosage" == resource_type_lower:
             from . import medicationadministration
             return medicationadministration.MedicationAdministrationDosage(jsondict)
-        if "MedicationAdministrationPerformer" == resource_type:
+        if "medicationadministrationperformer" == resource_type_lower:
             from . import medicationadministration
             return medicationadministration.MedicationAdministrationPerformer(jsondict)
-        if "MedicationBatch" == resource_type:
+        if "medicationbatch" == resource_type_lower:
             from . import medication
             return medication.MedicationBatch(jsondict)
-        if "MedicationDispense" == resource_type:
+        if "medicationdispense" == resource_type_lower:
             from . import medicationdispense
             return medicationdispense.MedicationDispense(jsondict)
-        if "MedicationDispensePerformer" == resource_type:
+        if "medicationdispenseperformer" == resource_type_lower:
             from . import medicationdispense
             return medicationdispense.MedicationDispensePerformer(jsondict)
-        if "MedicationDispenseSubstitution" == resource_type:
+        if "medicationdispensesubstitution" == resource_type_lower:
             from . import medicationdispense
             return medicationdispense.MedicationDispenseSubstitution(jsondict)
-        if "MedicationIngredient" == resource_type:
+        if "medicationingredient" == resource_type_lower:
             from . import medication
             return medication.MedicationIngredient(jsondict)
-        if "MedicationKnowledge" == resource_type:
+        if "medicationknowledge" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledge(jsondict)
-        if "MedicationKnowledgeAdministrationGuidelines" == resource_type:
+        if "medicationknowledgeadministrationguidelines" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeAdministrationGuidelines(jsondict)
-        if "MedicationKnowledgeAdministrationGuidelinesDosage" == resource_type:
+        if "medicationknowledgeadministrationguidelinesdosage" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeAdministrationGuidelinesDosage(jsondict)
-        if "MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics" == resource_type:
+        if "medicationknowledgeadministrationguidelinespatientcharacteristics" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics(jsondict)
-        if "MedicationKnowledgeCost" == resource_type:
+        if "medicationknowledgecost" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeCost(jsondict)
-        if "MedicationKnowledgeDrugCharacteristic" == resource_type:
+        if "medicationknowledgedrugcharacteristic" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeDrugCharacteristic(jsondict)
-        if "MedicationKnowledgeIngredient" == resource_type:
+        if "medicationknowledgeingredient" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeIngredient(jsondict)
-        if "MedicationKnowledgeKinetics" == resource_type:
+        if "medicationknowledgekinetics" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeKinetics(jsondict)
-        if "MedicationKnowledgeMedicineClassification" == resource_type:
+        if "medicationknowledgemedicineclassification" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeMedicineClassification(jsondict)
-        if "MedicationKnowledgeMonitoringProgram" == resource_type:
+        if "medicationknowledgemonitoringprogram" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeMonitoringProgram(jsondict)
-        if "MedicationKnowledgeMonograph" == resource_type:
+        if "medicationknowledgemonograph" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeMonograph(jsondict)
-        if "MedicationKnowledgePackaging" == resource_type:
+        if "medicationknowledgepackaging" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgePackaging(jsondict)
-        if "MedicationKnowledgeRegulatory" == resource_type:
+        if "medicationknowledgeregulatory" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeRegulatory(jsondict)
-        if "MedicationKnowledgeRegulatoryMaxDispense" == resource_type:
+        if "medicationknowledgeregulatorymaxdispense" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeRegulatoryMaxDispense(jsondict)
-        if "MedicationKnowledgeRegulatorySchedule" == resource_type:
+        if "medicationknowledgeregulatoryschedule" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeRegulatorySchedule(jsondict)
-        if "MedicationKnowledgeRegulatorySubstitution" == resource_type:
+        if "medicationknowledgeregulatorysubstitution" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeRegulatorySubstitution(jsondict)
-        if "MedicationKnowledgeRelatedMedicationKnowledge" == resource_type:
+        if "medicationknowledgerelatedmedicationknowledge" == resource_type_lower:
             from . import medicationknowledge
             return medicationknowledge.MedicationKnowledgeRelatedMedicationKnowledge(jsondict)
-        if "MedicationRequest" == resource_type:
+        if "medicationrequest" == resource_type_lower:
             from . import medicationrequest
             return medicationrequest.MedicationRequest(jsondict)
-        if "MedicationRequestDispenseRequest" == resource_type:
+        if "medicationrequestdispenserequest" == resource_type_lower:
             from . import medicationrequest
             return medicationrequest.MedicationRequestDispenseRequest(jsondict)
-        if "MedicationRequestDispenseRequestInitialFill" == resource_type:
+        if "medicationrequestdispenserequestinitialfill" == resource_type_lower:
             from . import medicationrequest
             return medicationrequest.MedicationRequestDispenseRequestInitialFill(jsondict)
-        if "MedicationRequestSubstitution" == resource_type:
+        if "medicationrequestsubstitution" == resource_type_lower:
             from . import medicationrequest
             return medicationrequest.MedicationRequestSubstitution(jsondict)
-        if "MedicationStatement" == resource_type:
+        if "medicationstatement" == resource_type_lower:
             from . import medicationstatement
             return medicationstatement.MedicationStatement(jsondict)
-        if "MedicinalProduct" == resource_type:
+        if "medicinalproduct" == resource_type_lower:
             from . import medicinalproduct
             return medicinalproduct.MedicinalProduct(jsondict)
-        if "MedicinalProductAuthorization" == resource_type:
+        if "medicinalproductauthorization" == resource_type_lower:
             from . import medicinalproductauthorization
             return medicinalproductauthorization.MedicinalProductAuthorization(jsondict)
-        if "MedicinalProductAuthorizationJurisdictionalAuthorization" == resource_type:
+        if "medicinalproductauthorizationjurisdictionalauthorization" == resource_type_lower:
             from . import medicinalproductauthorization
             return medicinalproductauthorization.MedicinalProductAuthorizationJurisdictionalAuthorization(jsondict)
-        if "MedicinalProductAuthorizationProcedure" == resource_type:
+        if "medicinalproductauthorizationprocedure" == resource_type_lower:
             from . import medicinalproductauthorization
             return medicinalproductauthorization.MedicinalProductAuthorizationProcedure(jsondict)
-        if "MedicinalProductContraindication" == resource_type:
+        if "medicinalproductcontraindication" == resource_type_lower:
             from . import medicinalproductcontraindication
             return medicinalproductcontraindication.MedicinalProductContraindication(jsondict)
-        if "MedicinalProductContraindicationOtherTherapy" == resource_type:
+        if "medicinalproductcontraindicationothertherapy" == resource_type_lower:
             from . import medicinalproductcontraindication
             return medicinalproductcontraindication.MedicinalProductContraindicationOtherTherapy(jsondict)
-        if "MedicinalProductIndication" == resource_type:
+        if "medicinalproductindication" == resource_type_lower:
             from . import medicinalproductindication
             return medicinalproductindication.MedicinalProductIndication(jsondict)
-        if "MedicinalProductIndicationOtherTherapy" == resource_type:
+        if "medicinalproductindicationothertherapy" == resource_type_lower:
             from . import medicinalproductindication
             return medicinalproductindication.MedicinalProductIndicationOtherTherapy(jsondict)
-        if "MedicinalProductIngredient" == resource_type:
+        if "medicinalproductingredient" == resource_type_lower:
             from . import medicinalproductingredient
             return medicinalproductingredient.MedicinalProductIngredient(jsondict)
-        if "MedicinalProductIngredientSpecifiedSubstance" == resource_type:
+        if "medicinalproductingredientspecifiedsubstance" == resource_type_lower:
             from . import medicinalproductingredient
             return medicinalproductingredient.MedicinalProductIngredientSpecifiedSubstance(jsondict)
-        if "MedicinalProductIngredientSpecifiedSubstanceStrength" == resource_type:
+        if "medicinalproductingredientspecifiedsubstancestrength" == resource_type_lower:
             from . import medicinalproductingredient
             return medicinalproductingredient.MedicinalProductIngredientSpecifiedSubstanceStrength(jsondict)
-        if "MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength" == resource_type:
+        if "medicinalproductingredientspecifiedsubstancestrengthreferencestrength" == resource_type_lower:
             from . import medicinalproductingredient
             return medicinalproductingredient.MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength(jsondict)
-        if "MedicinalProductIngredientSubstance" == resource_type:
+        if "medicinalproductingredientsubstance" == resource_type_lower:
             from . import medicinalproductingredient
             return medicinalproductingredient.MedicinalProductIngredientSubstance(jsondict)
-        if "MedicinalProductInteraction" == resource_type:
+        if "medicinalproductinteraction" == resource_type_lower:
             from . import medicinalproductinteraction
             return medicinalproductinteraction.MedicinalProductInteraction(jsondict)
-        if "MedicinalProductInteractionInteractant" == resource_type:
+        if "medicinalproductinteractioninteractant" == resource_type_lower:
             from . import medicinalproductinteraction
             return medicinalproductinteraction.MedicinalProductInteractionInteractant(jsondict)
-        if "MedicinalProductManufactured" == resource_type:
+        if "medicinalproductmanufactured" == resource_type_lower:
             from . import medicinalproductmanufactured
             return medicinalproductmanufactured.MedicinalProductManufactured(jsondict)
-        if "MedicinalProductManufacturingBusinessOperation" == resource_type:
+        if "medicinalproductmanufacturingbusinessoperation" == resource_type_lower:
             from . import medicinalproduct
             return medicinalproduct.MedicinalProductManufacturingBusinessOperation(jsondict)
-        if "MedicinalProductName" == resource_type:
+        if "medicinalproductname" == resource_type_lower:
             from . import medicinalproduct
             return medicinalproduct.MedicinalProductName(jsondict)
-        if "MedicinalProductNameCountryLanguage" == resource_type:
+        if "medicinalproductnamecountrylanguage" == resource_type_lower:
             from . import medicinalproduct
             return medicinalproduct.MedicinalProductNameCountryLanguage(jsondict)
-        if "MedicinalProductNameNamePart" == resource_type:
+        if "medicinalproductnamenamepart" == resource_type_lower:
             from . import medicinalproduct
             return medicinalproduct.MedicinalProductNameNamePart(jsondict)
-        if "MedicinalProductPackaged" == resource_type:
+        if "medicinalproductpackaged" == resource_type_lower:
             from . import medicinalproductpackaged
             return medicinalproductpackaged.MedicinalProductPackaged(jsondict)
-        if "MedicinalProductPackagedBatchIdentifier" == resource_type:
+        if "medicinalproductpackagedbatchidentifier" == resource_type_lower:
             from . import medicinalproductpackaged
             return medicinalproductpackaged.MedicinalProductPackagedBatchIdentifier(jsondict)
-        if "MedicinalProductPackagedPackageItem" == resource_type:
+        if "medicinalproductpackagedpackageitem" == resource_type_lower:
             from . import medicinalproductpackaged
             return medicinalproductpackaged.MedicinalProductPackagedPackageItem(jsondict)
-        if "MedicinalProductPharmaceutical" == resource_type:
+        if "medicinalproductpharmaceutical" == resource_type_lower:
             from . import medicinalproductpharmaceutical
             return medicinalproductpharmaceutical.MedicinalProductPharmaceutical(jsondict)
-        if "MedicinalProductPharmaceuticalCharacteristics" == resource_type:
+        if "medicinalproductpharmaceuticalcharacteristics" == resource_type_lower:
             from . import medicinalproductpharmaceutical
             return medicinalproductpharmaceutical.MedicinalProductPharmaceuticalCharacteristics(jsondict)
-        if "MedicinalProductPharmaceuticalRouteOfAdministration" == resource_type:
+        if "medicinalproductpharmaceuticalrouteofadministration" == resource_type_lower:
             from . import medicinalproductpharmaceutical
             return medicinalproductpharmaceutical.MedicinalProductPharmaceuticalRouteOfAdministration(jsondict)
-        if "MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies" == resource_type:
+        if "medicinalproductpharmaceuticalrouteofadministrationtargetspecies" == resource_type_lower:
             from . import medicinalproductpharmaceutical
             return medicinalproductpharmaceutical.MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies(jsondict)
-        if "MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod" == resource_type:
+        if "medicinalproductpharmaceuticalrouteofadministrationtargetspecieswithdrawalperiod" == resource_type_lower:
             from . import medicinalproductpharmaceutical
             return medicinalproductpharmaceutical.MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod(jsondict)
-        if "MedicinalProductSpecialDesignation" == resource_type:
+        if "medicinalproductspecialdesignation" == resource_type_lower:
             from . import medicinalproduct
             return medicinalproduct.MedicinalProductSpecialDesignation(jsondict)
-        if "MedicinalProductUndesirableEffect" == resource_type:
+        if "medicinalproductundesirableeffect" == resource_type_lower:
             from . import medicinalproductundesirableeffect
             return medicinalproductundesirableeffect.MedicinalProductUndesirableEffect(jsondict)
-        if "MessageDefinition" == resource_type:
+        if "messagedefinition" == resource_type_lower:
             from . import messagedefinition
             return messagedefinition.MessageDefinition(jsondict)
-        if "MessageDefinitionAllowedResponse" == resource_type:
+        if "messagedefinitionallowedresponse" == resource_type_lower:
             from . import messagedefinition
             return messagedefinition.MessageDefinitionAllowedResponse(jsondict)
-        if "MessageDefinitionFocus" == resource_type:
+        if "messagedefinitionfocus" == resource_type_lower:
             from . import messagedefinition
             return messagedefinition.MessageDefinitionFocus(jsondict)
-        if "MessageHeader" == resource_type:
+        if "messageheader" == resource_type_lower:
             from . import messageheader
             return messageheader.MessageHeader(jsondict)
-        if "MessageHeaderDestination" == resource_type:
+        if "messageheaderdestination" == resource_type_lower:
             from . import messageheader
             return messageheader.MessageHeaderDestination(jsondict)
-        if "MessageHeaderResponse" == resource_type:
+        if "messageheaderresponse" == resource_type_lower:
             from . import messageheader
             return messageheader.MessageHeaderResponse(jsondict)
-        if "MessageHeaderSource" == resource_type:
+        if "messageheadersource" == resource_type_lower:
             from . import messageheader
             return messageheader.MessageHeaderSource(jsondict)
-        if "Meta" == resource_type:
+        if "meta" == resource_type_lower:
             from . import meta
             return meta.Meta(jsondict)
-        if "MetadataResource" == resource_type:
+        if "metadataresource" == resource_type_lower:
             from . import metadataresource
             return metadataresource.MetadataResource(jsondict)
-        if "MolecularSequence" == resource_type:
+        if "molecularsequence" == resource_type_lower:
             from . import molecularsequence
             return molecularsequence.MolecularSequence(jsondict)
-        if "MolecularSequenceQuality" == resource_type:
+        if "molecularsequencequality" == resource_type_lower:
             from . import molecularsequence
             return molecularsequence.MolecularSequenceQuality(jsondict)
-        if "MolecularSequenceQualityRoc" == resource_type:
+        if "molecularsequencequalityroc" == resource_type_lower:
             from . import molecularsequence
             return molecularsequence.MolecularSequenceQualityRoc(jsondict)
-        if "MolecularSequenceReferenceSeq" == resource_type:
+        if "molecularsequencereferenceseq" == resource_type_lower:
             from . import molecularsequence
             return molecularsequence.MolecularSequenceReferenceSeq(jsondict)
-        if "MolecularSequenceRepository" == resource_type:
+        if "molecularsequencerepository" == resource_type_lower:
             from . import molecularsequence
             return molecularsequence.MolecularSequenceRepository(jsondict)
-        if "MolecularSequenceStructureVariant" == resource_type:
+        if "molecularsequencestructurevariant" == resource_type_lower:
             from . import molecularsequence
             return molecularsequence.MolecularSequenceStructureVariant(jsondict)
-        if "MolecularSequenceStructureVariantInner" == resource_type:
+        if "molecularsequencestructurevariantinner" == resource_type_lower:
             from . import molecularsequence
             return molecularsequence.MolecularSequenceStructureVariantInner(jsondict)
-        if "MolecularSequenceStructureVariantOuter" == resource_type:
+        if "molecularsequencestructurevariantouter" == resource_type_lower:
             from . import molecularsequence
             return molecularsequence.MolecularSequenceStructureVariantOuter(jsondict)
-        if "MolecularSequenceVariant" == resource_type:
+        if "molecularsequencevariant" == resource_type_lower:
             from . import molecularsequence
             return molecularsequence.MolecularSequenceVariant(jsondict)
-        if "Money" == resource_type:
+        if "money" == resource_type_lower:
             from . import money
             return money.Money(jsondict)
-        if "NamingSystem" == resource_type:
+        if "namingsystem" == resource_type_lower:
             from . import namingsystem
             return namingsystem.NamingSystem(jsondict)
-        if "NamingSystemUniqueId" == resource_type:
+        if "namingsystemuniqueid" == resource_type_lower:
             from . import namingsystem
             return namingsystem.NamingSystemUniqueId(jsondict)
-        if "Narrative" == resource_type:
+        if "narrative" == resource_type_lower:
             from . import narrative
             return narrative.Narrative(jsondict)
-        if "NutritionOrder" == resource_type:
+        if "nutritionorder" == resource_type_lower:
             from . import nutritionorder
             return nutritionorder.NutritionOrder(jsondict)
-        if "NutritionOrderEnteralFormula" == resource_type:
+        if "nutritionorderenteralformula" == resource_type_lower:
             from . import nutritionorder
             return nutritionorder.NutritionOrderEnteralFormula(jsondict)
-        if "NutritionOrderEnteralFormulaAdministration" == resource_type:
+        if "nutritionorderenteralformulaadministration" == resource_type_lower:
             from . import nutritionorder
             return nutritionorder.NutritionOrderEnteralFormulaAdministration(jsondict)
-        if "NutritionOrderOralDiet" == resource_type:
+        if "nutritionorderoraldiet" == resource_type_lower:
             from . import nutritionorder
             return nutritionorder.NutritionOrderOralDiet(jsondict)
-        if "NutritionOrderOralDietNutrient" == resource_type:
+        if "nutritionorderoraldietnutrient" == resource_type_lower:
             from . import nutritionorder
             return nutritionorder.NutritionOrderOralDietNutrient(jsondict)
-        if "NutritionOrderOralDietTexture" == resource_type:
+        if "nutritionorderoraldiettexture" == resource_type_lower:
             from . import nutritionorder
             return nutritionorder.NutritionOrderOralDietTexture(jsondict)
-        if "NutritionOrderSupplement" == resource_type:
+        if "nutritionordersupplement" == resource_type_lower:
             from . import nutritionorder
             return nutritionorder.NutritionOrderSupplement(jsondict)
-        if "Observation" == resource_type:
+        if "observation" == resource_type_lower:
             from . import observation
             return observation.Observation(jsondict)
-        if "ObservationComponent" == resource_type:
+        if "observationcomponent" == resource_type_lower:
             from . import observation
             return observation.ObservationComponent(jsondict)
-        if "ObservationDefinition" == resource_type:
+        if "observationdefinition" == resource_type_lower:
             from . import observationdefinition
             return observationdefinition.ObservationDefinition(jsondict)
-        if "ObservationDefinitionQualifiedInterval" == resource_type:
+        if "observationdefinitionqualifiedinterval" == resource_type_lower:
             from . import observationdefinition
             return observationdefinition.ObservationDefinitionQualifiedInterval(jsondict)
-        if "ObservationDefinitionQuantitativeDetails" == resource_type:
+        if "observationdefinitionquantitativedetails" == resource_type_lower:
             from . import observationdefinition
             return observationdefinition.ObservationDefinitionQuantitativeDetails(jsondict)
-        if "ObservationReferenceRange" == resource_type:
+        if "observationreferencerange" == resource_type_lower:
             from . import observation
             return observation.ObservationReferenceRange(jsondict)
-        if "OperationDefinition" == resource_type:
+        if "operationdefinition" == resource_type_lower:
             from . import operationdefinition
             return operationdefinition.OperationDefinition(jsondict)
-        if "OperationDefinitionOverload" == resource_type:
+        if "operationdefinitionoverload" == resource_type_lower:
             from . import operationdefinition
             return operationdefinition.OperationDefinitionOverload(jsondict)
-        if "OperationDefinitionParameter" == resource_type:
+        if "operationdefinitionparameter" == resource_type_lower:
             from . import operationdefinition
             return operationdefinition.OperationDefinitionParameter(jsondict)
-        if "OperationDefinitionParameterBinding" == resource_type:
+        if "operationdefinitionparameterbinding" == resource_type_lower:
             from . import operationdefinition
             return operationdefinition.OperationDefinitionParameterBinding(jsondict)
-        if "OperationDefinitionParameterReferencedFrom" == resource_type:
+        if "operationdefinitionparameterreferencedfrom" == resource_type_lower:
             from . import operationdefinition
             return operationdefinition.OperationDefinitionParameterReferencedFrom(jsondict)
-        if "OperationOutcome" == resource_type:
+        if "operationoutcome" == resource_type_lower:
             from . import operationoutcome
             return operationoutcome.OperationOutcome(jsondict)
-        if "OperationOutcomeIssue" == resource_type:
+        if "operationoutcomeissue" == resource_type_lower:
             from . import operationoutcome
             return operationoutcome.OperationOutcomeIssue(jsondict)
-        if "Organization" == resource_type:
+        if "organization" == resource_type_lower:
             from . import organization
             return organization.Organization(jsondict)
-        if "OrganizationAffiliation" == resource_type:
+        if "organizationaffiliation" == resource_type_lower:
             from . import organizationaffiliation
             return organizationaffiliation.OrganizationAffiliation(jsondict)
-        if "OrganizationContact" == resource_type:
+        if "organizationcontact" == resource_type_lower:
             from . import organization
             return organization.OrganizationContact(jsondict)
-        if "ParameterDefinition" == resource_type:
+        if "parameterdefinition" == resource_type_lower:
             from . import parameterdefinition
             return parameterdefinition.ParameterDefinition(jsondict)
-        if "Parameters" == resource_type:
+        if "parameters" == resource_type_lower:
             from . import parameters
             return parameters.Parameters(jsondict)
-        if "ParametersParameter" == resource_type:
+        if "parametersparameter" == resource_type_lower:
             from . import parameters
             return parameters.ParametersParameter(jsondict)
-        if "Patient" == resource_type:
+        if "patient" == resource_type_lower:
             from . import patient
             return patient.Patient(jsondict)
-        if "PatientCommunication" == resource_type:
+        if "patientcommunication" == resource_type_lower:
             from . import patient
             return patient.PatientCommunication(jsondict)
-        if "PatientContact" == resource_type:
+        if "patientcontact" == resource_type_lower:
             from . import patient
             return patient.PatientContact(jsondict)
-        if "PatientLink" == resource_type:
+        if "patientlink" == resource_type_lower:
             from . import patient
             return patient.PatientLink(jsondict)
-        if "PaymentNotice" == resource_type:
+        if "paymentnotice" == resource_type_lower:
             from . import paymentnotice
             return paymentnotice.PaymentNotice(jsondict)
-        if "PaymentReconciliation" == resource_type:
+        if "paymentreconciliation" == resource_type_lower:
             from . import paymentreconciliation
             return paymentreconciliation.PaymentReconciliation(jsondict)
-        if "PaymentReconciliationDetail" == resource_type:
+        if "paymentreconciliationdetail" == resource_type_lower:
             from . import paymentreconciliation
             return paymentreconciliation.PaymentReconciliationDetail(jsondict)
-        if "PaymentReconciliationProcessNote" == resource_type:
+        if "paymentreconciliationprocessnote" == resource_type_lower:
             from . import paymentreconciliation
             return paymentreconciliation.PaymentReconciliationProcessNote(jsondict)
-        if "Period" == resource_type:
+        if "period" == resource_type_lower:
             from . import period
             return period.Period(jsondict)
-        if "Person" == resource_type:
+        if "person" == resource_type_lower:
             from . import person
             return person.Person(jsondict)
-        if "PersonLink" == resource_type:
+        if "personlink" == resource_type_lower:
             from . import person
             return person.PersonLink(jsondict)
-        if "PlanDefinition" == resource_type:
+        if "plandefinition" == resource_type_lower:
             from . import plandefinition
             return plandefinition.PlanDefinition(jsondict)
-        if "PlanDefinitionAction" == resource_type:
+        if "plandefinitionaction" == resource_type_lower:
             from . import plandefinition
             return plandefinition.PlanDefinitionAction(jsondict)
-        if "PlanDefinitionActionCondition" == resource_type:
+        if "plandefinitionactioncondition" == resource_type_lower:
             from . import plandefinition
             return plandefinition.PlanDefinitionActionCondition(jsondict)
-        if "PlanDefinitionActionDynamicValue" == resource_type:
+        if "plandefinitionactiondynamicvalue" == resource_type_lower:
             from . import plandefinition
             return plandefinition.PlanDefinitionActionDynamicValue(jsondict)
-        if "PlanDefinitionActionParticipant" == resource_type:
+        if "plandefinitionactionparticipant" == resource_type_lower:
             from . import plandefinition
             return plandefinition.PlanDefinitionActionParticipant(jsondict)
-        if "PlanDefinitionActionRelatedAction" == resource_type:
+        if "plandefinitionactionrelatedaction" == resource_type_lower:
             from . import plandefinition
             return plandefinition.PlanDefinitionActionRelatedAction(jsondict)
-        if "PlanDefinitionGoal" == resource_type:
+        if "plandefinitiongoal" == resource_type_lower:
             from . import plandefinition
             return plandefinition.PlanDefinitionGoal(jsondict)
-        if "PlanDefinitionGoalTarget" == resource_type:
+        if "plandefinitiongoaltarget" == resource_type_lower:
             from . import plandefinition
             return plandefinition.PlanDefinitionGoalTarget(jsondict)
-        if "Population" == resource_type:
+        if "population" == resource_type_lower:
             from . import population
             return population.Population(jsondict)
-        if "Practitioner" == resource_type:
+        if "practitioner" == resource_type_lower:
             from . import practitioner
             return practitioner.Practitioner(jsondict)
-        if "PractitionerQualification" == resource_type:
+        if "practitionerqualification" == resource_type_lower:
             from . import practitioner
             return practitioner.PractitionerQualification(jsondict)
-        if "PractitionerRole" == resource_type:
+        if "practitionerrole" == resource_type_lower:
             from . import practitionerrole
             return practitionerrole.PractitionerRole(jsondict)
-        if "PractitionerRoleAvailableTime" == resource_type:
+        if "practitionerroleavailabletime" == resource_type_lower:
             from . import practitionerrole
             return practitionerrole.PractitionerRoleAvailableTime(jsondict)
-        if "PractitionerRoleNotAvailable" == resource_type:
+        if "practitionerrolenotavailable" == resource_type_lower:
             from . import practitionerrole
             return practitionerrole.PractitionerRoleNotAvailable(jsondict)
-        if "Procedure" == resource_type:
+        if "procedure" == resource_type_lower:
             from . import procedure
             return procedure.Procedure(jsondict)
-        if "ProcedureFocalDevice" == resource_type:
+        if "procedurefocaldevice" == resource_type_lower:
             from . import procedure
             return procedure.ProcedureFocalDevice(jsondict)
-        if "ProcedurePerformer" == resource_type:
+        if "procedureperformer" == resource_type_lower:
             from . import procedure
             return procedure.ProcedurePerformer(jsondict)
-        if "ProdCharacteristic" == resource_type:
+        if "prodcharacteristic" == resource_type_lower:
             from . import prodcharacteristic
             return prodcharacteristic.ProdCharacteristic(jsondict)
-        if "ProductShelfLife" == resource_type:
+        if "productshelflife" == resource_type_lower:
             from . import productshelflife
             return productshelflife.ProductShelfLife(jsondict)
-        if "Provenance" == resource_type:
+        if "provenance" == resource_type_lower:
             from . import provenance
             return provenance.Provenance(jsondict)
-        if "ProvenanceAgent" == resource_type:
+        if "provenanceagent" == resource_type_lower:
             from . import provenance
             return provenance.ProvenanceAgent(jsondict)
-        if "ProvenanceEntity" == resource_type:
+        if "provenanceentity" == resource_type_lower:
             from . import provenance
             return provenance.ProvenanceEntity(jsondict)
-        if "Quantity" == resource_type:
+        if "quantity" == resource_type_lower:
             from . import quantity
             return quantity.Quantity(jsondict)
-        if "Quantity" == resource_type:
-            from . import quantity
-            return quantity.Quantity(jsondict)
-        if "Questionnaire" == resource_type:
+        # Duplicated "Quantity" entry removed in manual edit. Original template might have this.
+        if "questionnaire" == resource_type_lower:
             from . import questionnaire
             return questionnaire.Questionnaire(jsondict)
-        if "QuestionnaireItem" == resource_type:
+        if "questionnaireitem" == resource_type_lower:
             from . import questionnaire
             return questionnaire.QuestionnaireItem(jsondict)
-        if "QuestionnaireItemAnswerOption" == resource_type:
+        if "questionnaireitemansweroption" == resource_type_lower:
             from . import questionnaire
             return questionnaire.QuestionnaireItemAnswerOption(jsondict)
-        if "QuestionnaireItemEnableWhen" == resource_type:
+        if "questionnaireitemenablewhen" == resource_type_lower:
             from . import questionnaire
             return questionnaire.QuestionnaireItemEnableWhen(jsondict)
-        if "QuestionnaireItemInitial" == resource_type:
+        if "questionnaireiteminitial" == resource_type_lower:
             from . import questionnaire
             return questionnaire.QuestionnaireItemInitial(jsondict)
-        if "QuestionnaireResponse" == resource_type:
+        if "questionnaireresponse" == resource_type_lower:
             from . import questionnaireresponse
             return questionnaireresponse.QuestionnaireResponse(jsondict)
-        if "QuestionnaireResponseItem" == resource_type:
+        if "questionnaireresponseitem" == resource_type_lower:
             from . import questionnaireresponse
             return questionnaireresponse.QuestionnaireResponseItem(jsondict)
-        if "QuestionnaireResponseItemAnswer" == resource_type:
+        if "questionnaireresponseitemanswer" == resource_type_lower:
             from . import questionnaireresponse
             return questionnaireresponse.QuestionnaireResponseItemAnswer(jsondict)
-        if "Range" == resource_type:
+        if "range" == resource_type_lower:
             from . import range
             return range.Range(jsondict)
-        if "Ratio" == resource_type:
+        if "ratio" == resource_type_lower:
             from . import ratio
             return ratio.Ratio(jsondict)
-        if "Reference" == resource_type:
+        if "reference" == resource_type_lower:
             from . import reference
             return reference.Reference(jsondict)
-        if "RelatedArtifact" == resource_type:
+        if "relatedartifact" == resource_type_lower:
             from . import relatedartifact
             return relatedartifact.RelatedArtifact(jsondict)
-        if "RelatedPerson" == resource_type:
+        if "relatedperson" == resource_type_lower:
             from . import relatedperson
             return relatedperson.RelatedPerson(jsondict)
-        if "RelatedPersonCommunication" == resource_type:
+        if "relatedpersoncommunication" == resource_type_lower:
             from . import relatedperson
             return relatedperson.RelatedPersonCommunication(jsondict)
-        if "RequestGroup" == resource_type:
+        if "requestgroup" == resource_type_lower:
             from . import requestgroup
             return requestgroup.RequestGroup(jsondict)
-        if "RequestGroupAction" == resource_type:
+        if "requestgroupaction" == resource_type_lower:
             from . import requestgroup
             return requestgroup.RequestGroupAction(jsondict)
-        if "RequestGroupActionCondition" == resource_type:
+        if "requestgroupactioncondition" == resource_type_lower:
             from . import requestgroup
             return requestgroup.RequestGroupActionCondition(jsondict)
-        if "RequestGroupActionRelatedAction" == resource_type:
+        if "requestgroupactionrelatedaction" == resource_type_lower:
             from . import requestgroup
             return requestgroup.RequestGroupActionRelatedAction(jsondict)
-        if "ResearchDefinition" == resource_type:
+        if "researchdefinition" == resource_type_lower:
             from . import researchdefinition
             return researchdefinition.ResearchDefinition(jsondict)
-        if "ResearchElementDefinition" == resource_type:
+        if "researchelementdefinition" == resource_type_lower:
             from . import researchelementdefinition
             return researchelementdefinition.ResearchElementDefinition(jsondict)
-        if "ResearchElementDefinitionCharacteristic" == resource_type:
+        if "researchelementdefinitioncharacteristic" == resource_type_lower:
             from . import researchelementdefinition
             return researchelementdefinition.ResearchElementDefinitionCharacteristic(jsondict)
-        if "ResearchStudy" == resource_type:
+        if "researchstudy" == resource_type_lower:
             from . import researchstudy
             return researchstudy.ResearchStudy(jsondict)
-        if "ResearchStudyArm" == resource_type:
+        if "researchstudyarm" == resource_type_lower:
             from . import researchstudy
             return researchstudy.ResearchStudyArm(jsondict)
-        if "ResearchStudyObjective" == resource_type:
+        if "researchstudyobjective" == resource_type_lower:
             from . import researchstudy
             return researchstudy.ResearchStudyObjective(jsondict)
-        if "ResearchSubject" == resource_type:
+        if "researchsubject" == resource_type_lower:
             from . import researchsubject
             return researchsubject.ResearchSubject(jsondict)
-        if "Resource" == resource_type:
+        if "resource" == resource_type_lower:
             from . import resource
             return resource.Resource(jsondict)
-        if "RiskAssessment" == resource_type:
+        if "riskassessment" == resource_type_lower:
             from . import riskassessment
             return riskassessment.RiskAssessment(jsondict)
-        if "RiskAssessmentPrediction" == resource_type:
+        if "riskassessmentprediction" == resource_type_lower:
             from . import riskassessment
             return riskassessment.RiskAssessmentPrediction(jsondict)
-        if "RiskEvidenceSynthesis" == resource_type:
+        if "riskevidencesynthesis" == resource_type_lower:
             from . import riskevidencesynthesis
             return riskevidencesynthesis.RiskEvidenceSynthesis(jsondict)
-        if "RiskEvidenceSynthesisCertainty" == resource_type:
+        if "riskevidencesynthesiscertainty" == resource_type_lower:
             from . import riskevidencesynthesis
             return riskevidencesynthesis.RiskEvidenceSynthesisCertainty(jsondict)
-        if "RiskEvidenceSynthesisCertaintyCertaintySubcomponent" == resource_type:
+        if "riskevidencesynthesiscertaintycertaintysubcomponent" == resource_type_lower:
             from . import riskevidencesynthesis
             return riskevidencesynthesis.RiskEvidenceSynthesisCertaintyCertaintySubcomponent(jsondict)
-        if "RiskEvidenceSynthesisRiskEstimate" == resource_type:
+        if "riskevidencesynthesisriskestimate" == resource_type_lower:
             from . import riskevidencesynthesis
             return riskevidencesynthesis.RiskEvidenceSynthesisRiskEstimate(jsondict)
-        if "RiskEvidenceSynthesisRiskEstimatePrecisionEstimate" == resource_type:
+        if "riskevidencesynthesisriskestimateprecisionestimate" == resource_type_lower:
             from . import riskevidencesynthesis
             return riskevidencesynthesis.RiskEvidenceSynthesisRiskEstimatePrecisionEstimate(jsondict)
-        if "RiskEvidenceSynthesisSampleSize" == resource_type:
+        if "riskevidencesynthesissamplesize" == resource_type_lower:
             from . import riskevidencesynthesis
             return riskevidencesynthesis.RiskEvidenceSynthesisSampleSize(jsondict)
-        if "SampledData" == resource_type:
+        if "sampleddata" == resource_type_lower:
             from . import sampleddata
             return sampleddata.SampledData(jsondict)
-        if "Schedule" == resource_type:
+        if "schedule" == resource_type_lower:
             from . import schedule
             return schedule.Schedule(jsondict)
-        if "SearchParameter" == resource_type:
+        if "searchparameter" == resource_type_lower:
             from . import searchparameter
             return searchparameter.SearchParameter(jsondict)
-        if "SearchParameterComponent" == resource_type:
+        if "searchparametercomponent" == resource_type_lower:
             from . import searchparameter
             return searchparameter.SearchParameterComponent(jsondict)
-        if "ServiceRequest" == resource_type:
+        if "servicerequest" == resource_type_lower:
             from . import servicerequest
             return servicerequest.ServiceRequest(jsondict)
-        if "Signature" == resource_type:
+        if "signature" == resource_type_lower:
             from . import signature
             return signature.Signature(jsondict)
-        if "Slot" == resource_type:
+        if "slot" == resource_type_lower:
             from . import slot
             return slot.Slot(jsondict)
-        if "Specimen" == resource_type:
+        if "specimen" == resource_type_lower:
             from . import specimen
             return specimen.Specimen(jsondict)
-        if "SpecimenCollection" == resource_type:
+        if "specimencollection" == resource_type_lower:
             from . import specimen
             return specimen.SpecimenCollection(jsondict)
-        if "SpecimenContainer" == resource_type:
+        if "specimencontainer" == resource_type_lower:
             from . import specimen
             return specimen.SpecimenContainer(jsondict)
-        if "SpecimenDefinition" == resource_type:
+        if "specimendefinition" == resource_type_lower:
             from . import specimendefinition
             return specimendefinition.SpecimenDefinition(jsondict)
-        if "SpecimenDefinitionTypeTested" == resource_type:
+        if "specimendefinitiontypetested" == resource_type_lower:
             from . import specimendefinition
             return specimendefinition.SpecimenDefinitionTypeTested(jsondict)
-        if "SpecimenDefinitionTypeTestedContainer" == resource_type:
+        if "specimendefinitiontypetestedcontainer" == resource_type_lower:
             from . import specimendefinition
             return specimendefinition.SpecimenDefinitionTypeTestedContainer(jsondict)
-        if "SpecimenDefinitionTypeTestedContainerAdditive" == resource_type:
+        if "specimendefinitiontypetestedcontaineradditive" == resource_type_lower:
             from . import specimendefinition
             return specimendefinition.SpecimenDefinitionTypeTestedContainerAdditive(jsondict)
-        if "SpecimenDefinitionTypeTestedHandling" == resource_type:
+        if "specimendefinitiontypetestedhandling" == resource_type_lower:
             from . import specimendefinition
             return specimendefinition.SpecimenDefinitionTypeTestedHandling(jsondict)
-        if "SpecimenProcessing" == resource_type:
+        if "specimenprocessing" == resource_type_lower:
             from . import specimen
             return specimen.SpecimenProcessing(jsondict)
-        if "StructureDefinition" == resource_type:
+        if "structuredefinition" == resource_type_lower:
             from . import structuredefinition
             return structuredefinition.StructureDefinition(jsondict)
-        if "StructureDefinitionContext" == resource_type:
+        if "structuredefinitioncontext" == resource_type_lower:
             from . import structuredefinition
             return structuredefinition.StructureDefinitionContext(jsondict)
-        if "StructureDefinitionDifferential" == resource_type:
+        if "structuredefinitiondifferential" == resource_type_lower:
             from . import structuredefinition
             return structuredefinition.StructureDefinitionDifferential(jsondict)
-        if "StructureDefinitionMapping" == resource_type:
+        if "structuredefinitionmapping" == resource_type_lower:
             from . import structuredefinition
             return structuredefinition.StructureDefinitionMapping(jsondict)
-        if "StructureDefinitionSnapshot" == resource_type:
+        if "structuredefinitionsnapshot" == resource_type_lower:
             from . import structuredefinition
             return structuredefinition.StructureDefinitionSnapshot(jsondict)
-        if "StructureMap" == resource_type:
+        if "structuremap" == resource_type_lower:
             from . import structuremap
             return structuremap.StructureMap(jsondict)
-        if "StructureMapGroup" == resource_type:
+        if "structuremapgroup" == resource_type_lower:
             from . import structuremap
             return structuremap.StructureMapGroup(jsondict)
-        if "StructureMapGroupInput" == resource_type:
+        if "structuremapgroupinput" == resource_type_lower:
             from . import structuremap
             return structuremap.StructureMapGroupInput(jsondict)
-        if "StructureMapGroupRule" == resource_type:
+        if "structuremapgrouprule" == resource_type_lower:
             from . import structuremap
             return structuremap.StructureMapGroupRule(jsondict)
-        if "StructureMapGroupRuleDependent" == resource_type:
+        if "structuremapgroupruledependent" == resource_type_lower:
             from . import structuremap
             return structuremap.StructureMapGroupRuleDependent(jsondict)
-        if "StructureMapGroupRuleSource" == resource_type:
+        if "structuremapgrouprulesource" == resource_type_lower:
             from . import structuremap
             return structuremap.StructureMapGroupRuleSource(jsondict)
-        if "StructureMapGroupRuleTarget" == resource_type:
+        if "structuremapgroupruletarget" == resource_type_lower:
             from . import structuremap
             return structuremap.StructureMapGroupRuleTarget(jsondict)
-        if "StructureMapGroupRuleTargetParameter" == resource_type:
+        if "structuremapgroupruletargetparameter" == resource_type_lower:
             from . import structuremap
             return structuremap.StructureMapGroupRuleTargetParameter(jsondict)
-        if "StructureMapStructure" == resource_type:
+        if "structuremapstructure" == resource_type_lower:
             from . import structuremap
             return structuremap.StructureMapStructure(jsondict)
-        if "Subscription" == resource_type:
+        if "subscription" == resource_type_lower:
             from . import subscription
             return subscription.Subscription(jsondict)
-        if "SubscriptionChannel" == resource_type:
+        if "subscriptionchannel" == resource_type_lower:
             from . import subscription
             return subscription.SubscriptionChannel(jsondict)
-        if "Substance" == resource_type:
+        if "substance" == resource_type_lower:
             from . import substance
             return substance.Substance(jsondict)
-        if "SubstanceAmount" == resource_type:
+        if "substanceamount" == resource_type_lower:
             from . import substanceamount
             return substanceamount.SubstanceAmount(jsondict)
-        if "SubstanceAmountReferenceRange" == resource_type:
+        if "substanceamountreferencerange" == resource_type_lower:
             from . import substanceamount
             return substanceamount.SubstanceAmountReferenceRange(jsondict)
-        if "SubstanceIngredient" == resource_type:
+        if "substanceingredient" == resource_type_lower:
             from . import substance
             return substance.SubstanceIngredient(jsondict)
-        if "SubstanceInstance" == resource_type:
+        if "substanceinstance" == resource_type_lower:
             from . import substance
             return substance.SubstanceInstance(jsondict)
-        if "SubstanceNucleicAcid" == resource_type:
+        if "substancenucleicacid" == resource_type_lower:
             from . import substancenucleicacid
             return substancenucleicacid.SubstanceNucleicAcid(jsondict)
-        if "SubstanceNucleicAcidSubunit" == resource_type:
+        if "substancenucleicacidsubunit" == resource_type_lower:
             from . import substancenucleicacid
             return substancenucleicacid.SubstanceNucleicAcidSubunit(jsondict)
-        if "SubstanceNucleicAcidSubunitLinkage" == resource_type:
+        if "substancenucleicacidsubunitlinkage" == resource_type_lower:
             from . import substancenucleicacid
             return substancenucleicacid.SubstanceNucleicAcidSubunitLinkage(jsondict)
-        if "SubstanceNucleicAcidSubunitSugar" == resource_type:
+        if "substancenucleicacidsubunitsugar" == resource_type_lower:
             from . import substancenucleicacid
             return substancenucleicacid.SubstanceNucleicAcidSubunitSugar(jsondict)
-        if "SubstancePolymer" == resource_type:
+        if "substancepolymer" == resource_type_lower:
             from . import substancepolymer
             return substancepolymer.SubstancePolymer(jsondict)
-        if "SubstancePolymerMonomerSet" == resource_type:
+        if "substancepolymermonomerset" == resource_type_lower:
             from . import substancepolymer
             return substancepolymer.SubstancePolymerMonomerSet(jsondict)
-        if "SubstancePolymerMonomerSetStartingMaterial" == resource_type:
+        if "substancepolymermonomersetstartingmaterial" == resource_type_lower:
             from . import substancepolymer
             return substancepolymer.SubstancePolymerMonomerSetStartingMaterial(jsondict)
-        if "SubstancePolymerRepeat" == resource_type:
+        if "substancepolymerrepeat" == resource_type_lower:
             from . import substancepolymer
             return substancepolymer.SubstancePolymerRepeat(jsondict)
-        if "SubstancePolymerRepeatRepeatUnit" == resource_type:
+        if "substancepolymerrepeatrepeatunit" == resource_type_lower:
             from . import substancepolymer
             return substancepolymer.SubstancePolymerRepeatRepeatUnit(jsondict)
-        if "SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation" == resource_type:
+        if "substancepolymerrepeatrepeatunitdegreeofpolymerisation" == resource_type_lower:
             from . import substancepolymer
             return substancepolymer.SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation(jsondict)
-        if "SubstancePolymerRepeatRepeatUnitStructuralRepresentation" == resource_type:
+        if "substancepolymerrepeatrepeatunitstructuralrepresentation" == resource_type_lower:
             from . import substancepolymer
             return substancepolymer.SubstancePolymerRepeatRepeatUnitStructuralRepresentation(jsondict)
-        if "SubstanceProtein" == resource_type:
+        if "substanceprotein" == resource_type_lower:
             from . import substanceprotein
             return substanceprotein.SubstanceProtein(jsondict)
-        if "SubstanceProteinSubunit" == resource_type:
+        if "substanceproteinsubunit" == resource_type_lower:
             from . import substanceprotein
             return substanceprotein.SubstanceProteinSubunit(jsondict)
-        if "SubstanceReferenceInformation" == resource_type:
+        if "substancereferenceinformation" == resource_type_lower:
             from . import substancereferenceinformation
             return substancereferenceinformation.SubstanceReferenceInformation(jsondict)
-        if "SubstanceReferenceInformationClassification" == resource_type:
+        if "substancereferenceinformationclassification" == resource_type_lower:
             from . import substancereferenceinformation
             return substancereferenceinformation.SubstanceReferenceInformationClassification(jsondict)
-        if "SubstanceReferenceInformationGene" == resource_type:
+        if "substancereferenceinformationgene" == resource_type_lower:
             from . import substancereferenceinformation
             return substancereferenceinformation.SubstanceReferenceInformationGene(jsondict)
-        if "SubstanceReferenceInformationGeneElement" == resource_type:
+        if "substancereferenceinformationgeneelement" == resource_type_lower:
             from . import substancereferenceinformation
             return substancereferenceinformation.SubstanceReferenceInformationGeneElement(jsondict)
-        if "SubstanceReferenceInformationTarget" == resource_type:
+        if "substancereferenceinformationtarget" == resource_type_lower:
             from . import substancereferenceinformation
             return substancereferenceinformation.SubstanceReferenceInformationTarget(jsondict)
-        if "SubstanceSourceMaterial" == resource_type:
+        if "substancesourcematerial" == resource_type_lower:
             from . import substancesourcematerial
             return substancesourcematerial.SubstanceSourceMaterial(jsondict)
-        if "SubstanceSourceMaterialFractionDescription" == resource_type:
+        if "substancesourcematerialfractiondescription" == resource_type_lower:
             from . import substancesourcematerial
             return substancesourcematerial.SubstanceSourceMaterialFractionDescription(jsondict)
-        if "SubstanceSourceMaterialOrganism" == resource_type:
+        if "substancesourcematerialorganism" == resource_type_lower:
             from . import substancesourcematerial
             return substancesourcematerial.SubstanceSourceMaterialOrganism(jsondict)
-        if "SubstanceSourceMaterialOrganismAuthor" == resource_type:
+        if "substancesourcematerialorganismauthor" == resource_type_lower:
             from . import substancesourcematerial
             return substancesourcematerial.SubstanceSourceMaterialOrganismAuthor(jsondict)
-        if "SubstanceSourceMaterialOrganismHybrid" == resource_type:
+        if "substancesourcematerialorganismhybrid" == resource_type_lower:
             from . import substancesourcematerial
             return substancesourcematerial.SubstanceSourceMaterialOrganismHybrid(jsondict)
-        if "SubstanceSourceMaterialOrganismOrganismGeneral" == resource_type:
+        if "substancesourcematerialorganismorganismgeneral" == resource_type_lower:
             from . import substancesourcematerial
             return substancesourcematerial.SubstanceSourceMaterialOrganismOrganismGeneral(jsondict)
-        if "SubstanceSourceMaterialPartDescription" == resource_type:
+        if "substancesourcematerialpartdescription" == resource_type_lower:
             from . import substancesourcematerial
             return substancesourcematerial.SubstanceSourceMaterialPartDescription(jsondict)
-        if "SubstanceSpecification" == resource_type:
+        if "substancespecification" == resource_type_lower:
             from . import substancespecification
             return substancespecification.SubstanceSpecification(jsondict)
-        if "SubstanceSpecificationMoiety" == resource_type:
+        if "substancespecificationmoiety" == resource_type_lower:
             from . import substancespecification
             return substancespecification.SubstanceSpecificationMoiety(jsondict)
-        if "SubstanceSpecificationName" == resource_type:
+        if "substancespecificationname" == resource_type_lower:
             from . import substancespecification
             return substancespecification.SubstanceSpecificationName(jsondict)
-        if "SubstanceSpecificationNameOfficial" == resource_type:
+        if "substancespecificationnameofficial" == resource_type_lower:
             from . import substancespecification
             return substancespecification.SubstanceSpecificationNameOfficial(jsondict)
-        if "SubstanceSpecificationProperty" == resource_type:
+        if "substancespecificationproperty" == resource_type_lower:
             from . import substancespecification
             return substancespecification.SubstanceSpecificationProperty(jsondict)
-        if "SubstanceSpecificationRelationship" == resource_type:
+        if "substancespecificationrelationship" == resource_type_lower:
             from . import substancespecification
             return substancespecification.SubstanceSpecificationRelationship(jsondict)
-        if "SubstanceSpecificationStructure" == resource_type:
+        if "substancespecificationstructure" == resource_type_lower:
             from . import substancespecification
             return substancespecification.SubstanceSpecificationStructure(jsondict)
-        if "SubstanceSpecificationStructureIsotope" == resource_type:
+        if "substancespecificationstructureisotope" == resource_type_lower:
             from . import substancespecification
             return substancespecification.SubstanceSpecificationStructureIsotope(jsondict)
-        if "SubstanceSpecificationStructureIsotopeMolecularWeight" == resource_type:
+        if "substancespecificationstructureisotopemolecularweight" == resource_type_lower:
             from . import substancespecification
             return substancespecification.SubstanceSpecificationStructureIsotopeMolecularWeight(jsondict)
-        if "SubstanceSpecificationStructureRepresentation" == resource_type:
+        if "substancespecificationstructurerepresentation" == resource_type_lower:
             from . import substancespecification
             return substancespecification.SubstanceSpecificationStructureRepresentation(jsondict)
-        if "SubstanceSpecificationstr" == resource_type:
+        if "substancespecificationstr" == resource_type_lower: # Note: This might be a typo in original template, usually Structure or Code
             from . import substancespecification
-            return substancespecification.SubstanceSpecificationstr(jsondict)
-        if "SupplyDelivery" == resource_type:
+            return substancespecification.SubstanceSpecificationstr(jsondict) # Keeping as-is if it's intentional
+        if "supplydelivery" == resource_type_lower:
             from . import supplydelivery
             return supplydelivery.SupplyDelivery(jsondict)
-        if "SupplyDeliverySuppliedItem" == resource_type:
+        if "supplydeliverysupplieditem" == resource_type_lower:
             from . import supplydelivery
             return supplydelivery.SupplyDeliverySuppliedItem(jsondict)
-        if "SupplyRequest" == resource_type:
+        if "supplyrequest" == resource_type_lower:
             from . import supplyrequest
             return supplyrequest.SupplyRequest(jsondict)
-        if "SupplyRequestParameter" == resource_type:
+        if "supplyrequestparameter" == resource_type_lower:
             from . import supplyrequest
             return supplyrequest.SupplyRequestParameter(jsondict)
-        if "Task" == resource_type:
+        if "task" == resource_type_lower:
             from . import task
             return task.Task(jsondict)
-        if "TaskInput" == resource_type:
+        if "taskinput" == resource_type_lower:
             from . import task
             return task.TaskInput(jsondict)
-        if "TaskOutput" == resource_type:
+        if "taskoutput" == resource_type_lower:
             from . import task
             return task.TaskOutput(jsondict)
-        if "TaskRestriction" == resource_type:
+        if "taskrestriction" == resource_type_lower:
             from . import task
             return task.TaskRestriction(jsondict)
-        if "TerminologyCapabilities" == resource_type:
+        if "terminologycapabilities" == resource_type_lower:
             from . import terminologycapabilities
             return terminologycapabilities.TerminologyCapabilities(jsondict)
-        if "TerminologyCapabilitiesClosure" == resource_type:
+        if "terminologycapabilitiesclosure" == resource_type_lower:
             from . import terminologycapabilities
             return terminologycapabilities.TerminologyCapabilitiesClosure(jsondict)
-        if "TerminologyCapabilitiesCodeSystem" == resource_type:
+        if "terminologycapabilitiescodesystem" == resource_type_lower:
             from . import terminologycapabilities
             return terminologycapabilities.TerminologyCapabilitiesCodeSystem(jsondict)
-        if "TerminologyCapabilitiesCodeSystemVersion" == resource_type:
+        if "terminologycapabilitiescodesystemversion" == resource_type_lower:
             from . import terminologycapabilities
             return terminologycapabilities.TerminologyCapabilitiesCodeSystemVersion(jsondict)
-        if "TerminologyCapabilitiesCodeSystemVersionFilter" == resource_type:
+        if "terminologycapabilitiescodesystemversionfilter" == resource_type_lower:
             from . import terminologycapabilities
             return terminologycapabilities.TerminologyCapabilitiesCodeSystemVersionFilter(jsondict)
-        if "TerminologyCapabilitiesExpansion" == resource_type:
+        if "terminologycapabilitiesexpansion" == resource_type_lower:
             from . import terminologycapabilities
             return terminologycapabilities.TerminologyCapabilitiesExpansion(jsondict)
-        if "TerminologyCapabilitiesExpansionParameter" == resource_type:
+        if "terminologycapabilitiesexpansionparameter" == resource_type_lower:
             from . import terminologycapabilities
             return terminologycapabilities.TerminologyCapabilitiesExpansionParameter(jsondict)
-        if "TerminologyCapabilitiesImplementation" == resource_type:
+        if "terminologycapabilitiesimplementation" == resource_type_lower:
             from . import terminologycapabilities
             return terminologycapabilities.TerminologyCapabilitiesImplementation(jsondict)
-        if "TerminologyCapabilitiesSoftware" == resource_type:
+        if "terminologycapabilitiessoftware" == resource_type_lower:
             from . import terminologycapabilities
             return terminologycapabilities.TerminologyCapabilitiesSoftware(jsondict)
-        if "TerminologyCapabilitiesTranslation" == resource_type:
+        if "terminologycapabilitiestranslation" == resource_type_lower:
             from . import terminologycapabilities
             return terminologycapabilities.TerminologyCapabilitiesTranslation(jsondict)
-        if "TerminologyCapabilitiesValidateCode" == resource_type:
+        if "terminologycapabilitiesvalidatecode" == resource_type_lower:
             from . import terminologycapabilities
             return terminologycapabilities.TerminologyCapabilitiesValidateCode(jsondict)
-        if "TestReport" == resource_type:
+        if "testreport" == resource_type_lower:
             from . import testreport
             return testreport.TestReport(jsondict)
-        if "TestReportParticipant" == resource_type:
+        if "testreportparticipant" == resource_type_lower:
             from . import testreport
             return testreport.TestReportParticipant(jsondict)
-        if "TestReportSetup" == resource_type:
+        if "testreportsetup" == resource_type_lower:
             from . import testreport
             return testreport.TestReportSetup(jsondict)
-        if "TestReportSetupAction" == resource_type:
+        if "testreportsetupaction" == resource_type_lower:
             from . import testreport
             return testreport.TestReportSetupAction(jsondict)
-        if "TestReportSetupActionAssert" == resource_type:
+        if "testreportsetupactionassert" == resource_type_lower:
             from . import testreport
             return testreport.TestReportSetupActionAssert(jsondict)
-        if "TestReportSetupActionOperation" == resource_type:
+        if "testreportsetupactionoperation" == resource_type_lower:
             from . import testreport
             return testreport.TestReportSetupActionOperation(jsondict)
-        if "TestReportTeardown" == resource_type:
+        if "testreportteardown" == resource_type_lower:
             from . import testreport
             return testreport.TestReportTeardown(jsondict)
-        if "TestReportTeardownAction" == resource_type:
+        if "testreportteardownaction" == resource_type_lower:
             from . import testreport
             return testreport.TestReportTeardownAction(jsondict)
-        if "TestReportTest" == resource_type:
+        if "testreporttest" == resource_type_lower:
             from . import testreport
             return testreport.TestReportTest(jsondict)
-        if "TestReportTestAction" == resource_type:
+        if "testreporttestaction" == resource_type_lower:
             from . import testreport
             return testreport.TestReportTestAction(jsondict)
-        if "TestScript" == resource_type:
+        if "testscript" == resource_type_lower:
             from . import testscript
             return testscript.TestScript(jsondict)
-        if "TestScriptDestination" == resource_type:
+        if "testscriptdestination" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptDestination(jsondict)
-        if "TestScriptFixture" == resource_type:
+        if "testscriptfixture" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptFixture(jsondict)
-        if "TestScriptMetadata" == resource_type:
+        if "testscriptmetadata" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptMetadata(jsondict)
-        if "TestScriptMetadataCapability" == resource_type:
+        if "testscriptmetadatacapability" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptMetadataCapability(jsondict)
-        if "TestScriptMetadataLink" == resource_type:
+        if "testscriptmetadatalink" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptMetadataLink(jsondict)
-        if "TestScriptOrigin" == resource_type:
+        if "testscriptorigin" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptOrigin(jsondict)
-        if "TestScriptSetup" == resource_type:
+        if "testscriptsetup" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptSetup(jsondict)
-        if "TestScriptSetupAction" == resource_type:
+        if "testscriptsetupaction" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptSetupAction(jsondict)
-        if "TestScriptSetupActionAssert" == resource_type:
+        if "testscriptsetupactionassert" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptSetupActionAssert(jsondict)
-        if "TestScriptSetupActionOperation" == resource_type:
+        if "testscriptsetupactionoperation" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptSetupActionOperation(jsondict)
-        if "TestScriptSetupActionOperationRequestHeader" == resource_type:
+        if "testscriptsetupactionoperationrequestheader" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptSetupActionOperationRequestHeader(jsondict)
-        if "TestScriptTeardown" == resource_type:
+        if "testscriptteardown" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptTeardown(jsondict)
-        if "TestScriptTeardownAction" == resource_type:
+        if "testscriptteardownaction" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptTeardownAction(jsondict)
-        if "TestScriptTest" == resource_type:
+        if "testscripttest" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptTest(jsondict)
-        if "TestScriptTestAction" == resource_type:
+        if "testscripttestaction" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptTestAction(jsondict)
-        if "TestScriptVariable" == resource_type:
+        if "testscriptvariable" == resource_type_lower:
             from . import testscript
             return testscript.TestScriptVariable(jsondict)
-        if "Timing" == resource_type:
+        if "timing" == resource_type_lower:
             from . import timing
             return timing.Timing(jsondict)
-        if "TimingRepeat" == resource_type:
+        if "timingrepeat" == resource_type_lower:
             from . import timing
             return timing.TimingRepeat(jsondict)
-        if "TriggerDefinition" == resource_type:
+        if "triggerdefinition" == resource_type_lower:
             from . import triggerdefinition
             return triggerdefinition.TriggerDefinition(jsondict)
-        if "UsageContext" == resource_type:
+        if "usagecontext" == resource_type_lower:
             from . import usagecontext
             return usagecontext.UsageContext(jsondict)
-        if "ValueSet" == resource_type:
+        if "valueset" == resource_type_lower:
             from . import valueset
             return valueset.ValueSet(jsondict)
-        if "ValueSetCompose" == resource_type:
+        if "valuesetcompose" == resource_type_lower:
             from . import valueset
             return valueset.ValueSetCompose(jsondict)
-        if "ValueSetComposeInclude" == resource_type:
+        if "valuesetcomposeinclude" == resource_type_lower:
             from . import valueset
             return valueset.ValueSetComposeInclude(jsondict)
-        if "ValueSetComposeIncludeConcept" == resource_type:
+        if "valuesetcomposeincludeconcept" == resource_type_lower:
             from . import valueset
             return valueset.ValueSetComposeIncludeConcept(jsondict)
-        if "ValueSetComposeIncludeConceptDesignation" == resource_type:
+        if "valuesetcomposeincludeconceptdesignation" == resource_type_lower:
             from . import valueset
             return valueset.ValueSetComposeIncludeConceptDesignation(jsondict)
-        if "ValueSetComposeIncludeFilter" == resource_type:
+        if "valuesetcomposeincludefilter" == resource_type_lower:
             from . import valueset
             return valueset.ValueSetComposeIncludeFilter(jsondict)
-        if "ValueSetExpansion" == resource_type:
+        if "valuesetexpansion" == resource_type_lower:
             from . import valueset
             return valueset.ValueSetExpansion(jsondict)
-        if "ValueSetExpansionContains" == resource_type:
+        if "valuesetexpansioncontains" == resource_type_lower:
             from . import valueset
             return valueset.ValueSetExpansionContains(jsondict)
-        if "ValueSetExpansionParameter" == resource_type:
+        if "valuesetexpansionparameter" == resource_type_lower:
             from . import valueset
             return valueset.ValueSetExpansionParameter(jsondict)
-        if "VerificationResult" == resource_type:
+        if "verificationresult" == resource_type_lower:
             from . import verificationresult
             return verificationresult.VerificationResult(jsondict)
-        if "VerificationResultAttestation" == resource_type:
+        if "verificationresultattestation" == resource_type_lower:
             from . import verificationresult
             return verificationresult.VerificationResultAttestation(jsondict)
-        if "VerificationResultPrimarySource" == resource_type:
+        if "verificationresultprimarysource" == resource_type_lower:
             from . import verificationresult
             return verificationresult.VerificationResultPrimarySource(jsondict)
-        if "VerificationResultValidator" == resource_type:
+        if "verificationresultvalidator" == resource_type_lower:
             from . import verificationresult
             return verificationresult.VerificationResultValidator(jsondict)
-        if "VisionPrescription" == resource_type:
+        if "visionprescription" == resource_type_lower:
             from . import visionprescription
             return visionprescription.VisionPrescription(jsondict)
-        if "VisionPrescriptionLensSpecification" == resource_type:
+        if "visionprescriptionlensspecification" == resource_type_lower:
             from . import visionprescription
             return visionprescription.VisionPrescriptionLensSpecification(jsondict)
-        if "VisionPrescriptionLensSpecificationPrism" == resource_type:
+        if "visionprescriptionlensspecificationprism" == resource_type_lower:
             from . import visionprescription
             return visionprescription.VisionPrescriptionLensSpecificationPrism(jsondict)
-        from . import element
+
+        from . import element # Default fallback
         return element.Element(jsondict)

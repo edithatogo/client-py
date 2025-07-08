@@ -17,9 +17,17 @@ class FHIRElementFactory(object):
         :param dict jsondict: The JSON dictionary to use for data
         :returns: A resource of the respective type or `Element`
         """
+        cleaned_resource_type = resource_type.strip() if resource_type else None
+        if not cleaned_resource_type:
+            # Or raise an error, depending on desired strictness for empty/None resourceType
+            from . import element
+            return element.Element(jsondict)
+
+        resource_type_lower = cleaned_resource_type.lower()
+
         {%- for klass in classes %}
         {%- if klass.resource_type %}
-        if "{{ klass.resource_type }}" == resource_type:
+        if "{{ klass.resource_type.lower() }}" == resource_type_lower:
             from . import {{ klass.module }}
             return {{ klass.module }}.{{ klass.name }}(jsondict)
         {%- elif klass.name %}
@@ -29,7 +37,7 @@ class FHIRElementFactory(object):
          # So to avoid an API break, we keep generating this for all classes.
          # Can reconsider whether we want this once we jump to R5. (R4-QUIRK)
          #}
-        if "{{ klass.name }}" == resource_type:
+        if "{{ klass.name.lower() }}" == resource_type_lower:
             from . import {{ klass.module }}
             return {{ klass.module }}.{{ klass.name }}(jsondict)
         {%- endif %}{% endfor %}

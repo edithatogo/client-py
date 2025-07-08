@@ -97,3 +97,100 @@ class TestClient(unittest.TestCase):
 
         self.assertIsNone(client.patient)
         self.assertIsNone(client.patient_id)  # we clear out the patient id
+
+
+class TestFHIRElementFactory(unittest.TestCase):
+    def test_instantiate_with_case_variations(self):
+        from fhirclient.models.fhirelementfactory import FHIRElementFactory
+        from fhirclient.models.patient import Patient
+        from fhirclient.models.observation import Observation
+        from fhirclient.models.medicationrequest import MedicationRequest
+        from fhirclient.models.element import Element
+
+        # Test lowercase
+        patient_json_lower = {"resourceType": "patient", "id": "test01"}
+        patient_instance_lower = FHIRElementFactory.instantiate('patient', patient_json_lower)
+        self.assertIsInstance(patient_instance_lower, Patient)
+        self.assertEqual(patient_instance_lower.id, "test01")
+
+        # Test uppercase
+        obs_json_upper = {
+            "resourceType": "OBSERVATION",
+            "id": "test02",
+            "status": "final",
+            "code": {"coding": [{"system": "http://loinc.org", "code": "12345-6"}]}
+        }
+        obs_instance_upper = FHIRElementFactory.instantiate('OBSERVATION', obs_json_upper)
+        self.assertIsInstance(obs_instance_upper, Observation)
+        self.assertEqual(obs_instance_upper.id, "test02")
+
+        # Test mixed case
+        medreq_json_mixed = {
+            "resourceType": "mEdIcAtIoNrEqUeSt",
+            "id": "test03",
+            "status": "active",
+            "intent": "order",
+            "medicationCodeableConcept": {"coding": [{"system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "123"}]},
+            "subject": {"reference": "Patient/test01"}
+        }
+        medreq_instance_mixed = FHIRElementFactory.instantiate('mEdIcAtIoNrEqUeSt', medreq_json_mixed)
+        self.assertIsInstance(medreq_instance_mixed, MedicationRequest)
+        self.assertEqual(medreq_instance_mixed.id, "test03")
+
+        # Test with leading/trailing whitespace
+        patient_json_space = {"resourceType": " Patient ", "id": "test04"}
+        patient_instance_space = FHIRElementFactory.instantiate(' Patient ', patient_json_space)
+        self.assertIsInstance(patient_instance_space, Patient)
+        self.assertEqual(patient_instance_space.id, "test04")
+
+        # Test with None resourceType
+        generic_json_none = {"id": "test05"}
+        generic_instance_none = FHIRElementFactory.instantiate(None, generic_json_none)
+        self.assertIsInstance(generic_instance_none, Element)
+        # self.assertIsNone(getattr(generic_instance_none, 'resource_type', None)) # Element might still have it
+
+        # Test with empty string resourceType
+        generic_json_empty = {"resourceType": "", "id": "test06"}
+        generic_instance_empty = FHIRElementFactory.instantiate('', generic_json_empty)
+        self.assertIsInstance(generic_instance_empty, Element)
+
+        # Test with whitespace-only string resourceType
+        generic_json_whitespace = {"resourceType": "   ", "id": "test07"}
+        generic_instance_whitespace = FHIRElementFactory.instantiate("   ", generic_json_whitespace)
+        self.assertIsInstance(generic_instance_whitespace, Element)
+
+    def test_abstract_resource_init_case_insensitivity(self):
+        from fhirclient.models.patient import Patient
+
+        # This should not raise an exception if __init__ is case-insensitive
+        try:
+            patient_lower = Patient(jsondict={"resourceType": "patient", "id": "pat1"}, strict=True)
+            self.assertEqual(patient_lower.id, "pat1")
+            patient_upper = Patient(jsondict={"resourceType": "PATIENT", "id": "pat2"}, strict=True)
+            self.assertEqual(patient_upper.id, "pat2")
+        except Exception as e:
+            self.fail(f"Instantiation with case-variant resourceType failed: {e}")
+
+        # This should still raise an exception for mismatched types if factory isn't used
+        from fhirclient.models.observation import Observation
+        # Using assertRaises(Exception) and then checking message is more robust if regex is tricky
+        with self.assertRaises(Exception) as context:
+            Patient(jsondict={"resourceType": "Observation", "id": "obs1"}, strict=True)
+        self.assertIn("Attempting to instantiate <class 'fhirclient.models.patient.Patient'> (expected resourceType 'Patient') with resource data that defines a resourceType of \"Observation\"", str(context.exception))
+
+        # Test with empty/None resourceType in strict mode
+        with self.assertRaisesRegex(ValueError, "ResourceType cannot be empty or None"):
+            Patient(jsondict={"resourceType": "", "id": "pat_empty"}, strict=True)
+
+        with self.assertRaisesRegex(ValueError, "ResourceType cannot be empty or None"):
+            Patient(jsondict={"resourceType": None, "id": "pat_none"}, strict=True)
+
+        # Test with empty/None resourceType in non-strict mode (should not raise for this, but other errors might occur if data is bad)
+        try:
+            Patient(jsondict={"resourceType": "", "id": "pat_empty_nostrict"}, strict=False)
+            Patient(jsondict={"resourceType": None, "id": "pat_none_nostrict"}, strict=False)
+        except ValueError as ve:
+            if "ResourceType cannot be empty" in str(ve): # Should not happen if strict=False for this specific check
+                 self.fail(f"ValueError for empty/None resourceType should not be raised when strict=False: {ve}")
+        except Exception:
+            pass # Other errors might occur due to incomplete data, which is fine for this test's scope

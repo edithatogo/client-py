@@ -7,8 +7,8 @@
 
 ## Incrementing the lib version
 
-- Edit `fhirclient/client.py` and change the `__version__` field.
-- Edit `docs/Doxyfile` and change the `PROJECT_NUMBER` field.
+- Edit `fhirclient/__init__.py` and change the `__version__` field.
+- Edit `docs/Doxyfile` and change the `PROJECT_NUMBER` field. (Ensure this still reflects the library version)
 
 ## Cutting a new release
 

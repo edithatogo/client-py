@@ -3,6 +3,9 @@ import logging
 from datetime import datetime, timedelta
 import urllib.parse as urlparse
 from urllib.parse import urlencode
+import secrets
+import hashlib
+import base64
 
 logger = logging.getLogger(__name__)
 
@@ -141,6 +144,9 @@ class FHIROAuth2Auth(FHIRAuth):
         self.refresh_token = None
         self.expires_at = None
         self.jwt_token = None
+        self.code_verifier = None  # For PKCE
+        self.custom_auth_params = None
+        self.custom_token_params = None
         
         super(FHIROAuth2Auth, self).__init__(state=state)
     
@@ -154,6 +160,7 @@ class FHIROAuth2Auth(FHIRAuth):
         super(FHIROAuth2Auth, self).reset()
         self.access_token = None
         self.auth_state = None
+        self.code_verifier = None # For PKCE
     
     
     # MARK: Signing/Authorizing Request Headers
@@ -214,6 +221,32 @@ class FHIROAuth2Auth(FHIRAuth):
         }
         if server.launch_token is not None:
             params['launch'] = server.launch_token
+
+        # PKCE parameters
+        # Only add PKCE if this is a public client (no app_secret)
+        # or if there's no JWT token (which implies a backend client using client_credentials)
+        # However, PKCE is primarily for protecting public clients in the auth code flow.
+        # Confidential clients are protected by their secret.
+        # Client credentials flow doesn't use PKCE.
+        # So, we apply PKCE if there's no app_secret (public client).
+        if not self.app_secret:
+            self.code_verifier = secrets.token_urlsafe(64)  # Generate a high-entropy verifier
+            # Ensure verifier is between 43 and 128 chars as per RFC 7636
+            # token_urlsafe(64) produces 86 chars, which is fine.
+
+            hashed_verifier = hashlib.sha256(self.code_verifier.encode('utf-8')).digest()
+            params['code_challenge'] = base64.urlsafe_b64encode(hashed_verifier).rstrip(b'=').decode('utf-8')
+            params['code_challenge_method'] = 'S256'
+            server.should_save_state() # Save state because code_verifier was generated
+
+        # Merge custom authorization parameters
+        if self.custom_auth_params:
+            for key, value in self.custom_auth_params.items():
+                if key not in params: # Additive, don't override core OAuth params
+                    params[key] = value
+                else:
+                    logger.warning(f"Custom auth param '{key}' conflicts with a standard OAuth param and will be ignored.")
+
         return params
     
     def handle_callback(self, url, server):
@@ -260,6 +293,20 @@ class FHIROAuth2Auth(FHIRAuth):
             'redirect_uri': self._redirect_uri,
             'state': self.auth_state,
         }
+
+        # Add PKCE code_verifier if it was generated
+        if self.code_verifier:
+            params['code_verifier'] = self.code_verifier # Use 'params' directly
+
+        # Merge custom token parameters
+        if self.custom_token_params:
+            for key, value in self.custom_token_params.items():
+                if key not in params: # Additive, don't override core OAuth params
+                    params[key] = value
+                else:
+                    logger.warning(f"Custom token param '{key}' conflicts with a standard OAuth param for code exchange and will be ignored.")
+
+        return params # Return the potentially modified params
     
     def _request_access_token(self, server, params):
         """ Requests an access token from the instance's server via a form POST
@@ -297,6 +344,16 @@ class FHIROAuth2Auth(FHIRAuth):
                 del ret_params['refresh_token']
         logger.debug("SMART AUTH: Received access token: {0}, refresh token: {1}"
             .format(self.access_token is not None, self.refresh_token is not None))
+
+        if 'code_verifier' in params: # Check if code_verifier was used in this request
+            self.code_verifier = None
+            # No need to call server.should_save_state() here explicitly for clearing code_verifier,
+            # as the successful token exchange (access_token, refresh_token, expires_at)
+            # will trigger save_state via client._handle_launch_context -> client.save_state()
+            # or FHIRServer.auth.state -> client.save_state() during capability statement fetching.
+            # However, if _request_access_token could be called outside these flows, saving state might be needed.
+            # For now, existing save mechanisms should cover it.
+
         return ret_params
     
     
@@ -324,6 +381,14 @@ class FHIROAuth2Auth(FHIRAuth):
         if self.jwt_token:
             params['client_assertion_type'] = 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer'
             params['client_assertion'] = self.jwt_token
+
+        # Merge custom token parameters
+        if self.custom_token_params:
+            for key, value in self.custom_token_params.items():
+                if key not in params: # Additive, don't override core OAuth params
+                    params[key] = value
+                else:
+                    logger.warning(f"Custom token param '{key}' conflicts with a standard OAuth param for client credentials and will be ignored.")
         return params
 
 
@@ -354,6 +419,15 @@ class FHIROAuth2Auth(FHIRAuth):
             'grant_type': 'refresh_token',
             'refresh_token': self.refresh_token,
         }
+
+        # Merge custom token parameters
+        if self.custom_token_params:
+            for key, value in self.custom_token_params.items():
+                if key not in params: # Additive, don't override core OAuth params
+                    params[key] = value
+                else:
+                    logger.warning(f"Custom token param '{key}' conflicts with a standard OAuth param for refresh token grant and will be ignored.")
+        return params
     
     
     # MARK: State
@@ -374,6 +448,12 @@ class FHIROAuth2Auth(FHIRAuth):
             s['access_token'] = self.access_token
         if self.refresh_token is not None:
             s['refresh_token'] = self.refresh_token
+        if self.code_verifier is not None: # Persist if set during auth flow
+            s['code_verifier'] = self.code_verifier
+        if self.custom_auth_params is not None:
+            s['custom_auth_params'] = self.custom_auth_params
+        if self.custom_token_params is not None:
+            s['custom_token_params'] = self.custom_token_params
         
         return s
     
@@ -392,6 +472,9 @@ class FHIROAuth2Auth(FHIRAuth):
         self.access_token = state.get('access_token') or self.access_token
         self.refresh_token = state.get('refresh_token') or self.refresh_token
         self.jwt_token = state.get('jwt_token') or self.jwt_token
+        self.code_verifier = state.get('code_verifier') or self.code_verifier # Restore PKCE verifier
+        self.custom_auth_params = state.get('custom_auth_params') or self.custom_auth_params
+        self.custom_token_params = state.get('custom_token_params') or self.custom_token_params
 
     # MARK: Utilities    
     

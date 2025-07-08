@@ -1,7 +1,7 @@
 import logging
 from .server import FHIRServer, FHIRUnauthorizedException, FHIRNotFoundException
 
-__version__ = '4.3.1'
+# __version__ = '4.3.1' # Version is now defined in fhirclient/__init__.py
 __author__ = 'SMART Platforms Team'
 __license__ = 'APACHE2'
 __copyright__ = "Copyright 2017 Boston Children's Hospital"
@@ -23,9 +23,12 @@ class FHIRClient(object):
         - `app_secret`*: Your app/client-secret
         - `api_base`*: The FHIR service to connect to, e.g. 'https://fhir-api-dstu2.smarthealthit.org'
         - `redirect_uri`: The callback/redirect URL for your app, e.g. 'http://localhost:8000/fhir-app/' when testing locally
-        - `patient_id`: The patient id against which to operate, if already known
-        - `scope`: Space-separated list of scopes to request, if other than default
-        - `launch_token`: The launch token
+        - `patient_id` (optional): The patient id against which to operate, if already known.
+        - `scope` (optional): Space-separated list of scopes to request, if other than default (e.g., `'openid profile patient/*.read'`).
+        - `launch_token` (optional): The launch token provided by an EHR during a SMART launch sequence.
+        - `jwt_token` (optional): A pre-signed JWT to be used for client assertion when authenticating to the token endpoint (typically for backend services using the `client_credentials` grant or private key JWT).
+        - `custom_auth_params` (optional): A dictionary of custom parameters to include in the query string of the authorization request to the `/authorize` endpoint. These are additive; standard OAuth2 parameters will take precedence in case of conflicts. A warning will be logged if a custom parameter conflicts with a standard one. Example: `{'custom_param': 'custom_value'}`.
+        - `custom_token_params` (optional): A dictionary of custom parameters to include in the body of token requests to the `/token` endpoint (for authorization code, client credentials, and refresh token grants). These are additive; standard OAuth2 parameters will take precedence in case of conflicts. A warning will be logged if a custom parameter conflicts with a standard one. Example: `{'custom_grant_param': 'custom_grant_value'}`.
     """
     
     def __init__(self, settings=None, state=None, save_func=lambda x:x):
@@ -55,6 +58,11 @@ class FHIRClient(object):
         """ If present, is included as part of the request to authenticate
         with a backend system through a client_assertion parameter
         """
+
+        self.custom_auth_params = None
+        """ Custom parameters to be added to the authorization request. """
+        self.custom_token_params = None
+        """ Custom parameters to be added to the token request. """
         
         if save_func is None:
             raise Exception("Must supply a save_func when initializing the SMART client")
@@ -78,6 +86,8 @@ class FHIRClient(object):
             self.scope = settings.get('scope', self.scope)
             self.launch_token = settings.get('launch_token')
             self.jwt_token = settings.get('jwt_token', None)
+            self.custom_auth_params = settings.get('custom_auth_params', None)
+            self.custom_token_params = settings.get('custom_token_params', None)
             self.server = FHIRServer(self, base_uri=settings['api_base'])
         else:
             raise Exception("Must either supply settings or a state upon client initialization")
@@ -222,6 +232,8 @@ class FHIRClient(object):
             'launch_token': self.launch_token,
             'launch_context': self.launch_context,
             'jwt_token': self.jwt_token,
+            'custom_auth_params': self.custom_auth_params,
+            'custom_token_params': self.custom_token_params,
         }
     
     def from_state(self, state):
@@ -233,6 +245,8 @@ class FHIRClient(object):
         self.patient_id = state.get('patient_id') or self.patient_id
         self.launch_token = state.get('launch_token') or self.launch_token
         self.launch_context = state.get('launch_context') or self.launch_context
+        self.custom_auth_params = state.get('custom_auth_params') or self.custom_auth_params
+        self.custom_token_params = state.get('custom_token_params') or self.custom_token_params
         self.server = FHIRServer(self, state=state.get('server'))
         self.jwt_token = state.get('jwt_token') or self.jwt_token
     

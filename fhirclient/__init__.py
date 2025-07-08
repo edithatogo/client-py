@@ -1,3 +1,3 @@
 """A flexible client for FHIR servers supporting the SMART on FHIR protocol"""
 
-from .client import __version__
+__version__ = '4.3.1'

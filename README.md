@@ -128,6 +128,88 @@ print({entry.resource.resource_type for bundle in bundles for entry in bundle.en
 # {'Encounter', 'Patient', 'Procedure'}
 ```
 
+### Using with SMART Backend Services
+
+The `fhirclient-py` can also be used for server-to-server communication where a backend service needs to access FHIR resources, typically using the OAuth2 client credentials grant or JWT-based client assertion.
+
+**1. Client Credentials Grant:**
+
+If your application is a "confidential client" and has been assigned a `client_id` and `client_secret` by the FHIR server, you can configure the `FHIRClient` as follows:
+
+```python
+from fhirclient import client
+
+settings = {
+    'app_id': 'your_backend_service_client_id',
+    'app_secret': 'your_client_secret',
+    'api_base': 'https://your.fhir.server/api/R4',
+    'scope': 'system/*.read system/*.write'  # Or other system-level scopes
+}
+smart = client.FHIRClient(settings=settings)
+
+# The client will automatically attempt to obtain an access token
+# using the client credentials grant when FHIR server interaction is needed
+# and no user-specific authorization (like a launch token) is present.
+
+# You can check if the client is ready (has an access token):
+if smart.ready or smart.prepare():
+    # Example: Fetching a specific resource
+    # (Assuming 'observation' model is imported)
+    # observation = Observation.read('some-obs-id', smart.server)
+    # print(observation.status)
+
+    # Example: Searching for resources
+    # (Assuming 'Patient' model is imported)
+    # search = Patient.where(struct={'name': 'Smith'})
+    # patients = search.perform_resources(smart.server)
+    # for p in patients:
+    #     print(smart.human_name(p.name[0]))
+    pass
+else:
+    print("Failed to authorize backend service.")
+    if smart.server and smart.server.auth and hasattr(smart.server.auth, 'error'):
+        print(f"Error: {smart.server.auth.error}")
+
+```
+The client automatically detects that it should use the client credentials grant because an `app_secret` is provided and there's no interactive session context (like a `launch_token` or a `redirect_uri` being actively processed for an authorization code flow).
+
+**2. JWT-Based Client Assertion (Asymmetric Client Authentication):**
+
+For backend services that use a pre-registered public key and authenticate with a self-signed JWT (JSON Web Token) sent as a client assertion, you can provide the JWT via the `jwt_token` setting:
+
+```python
+from fhirclient import client
+
+# Assume you have a function to generate or retrieve your signed JWT
+# def generate_signed_client_assertion_jwt(aud_url, client_id):
+#     # ... your JWT generation logic ...
+#     return signed_jwt_string
+
+settings = {
+    'app_id': 'your_backend_service_client_id', # This is often the 'iss' and 'sub' in the JWT
+    'api_base': 'https://your.fhir.server/api/R4',
+    'scope': 'system/*.read',
+    # 'jwt_token': generate_signed_client_assertion_jwt(
+    #     aud_url='https://your.fhir.server/oauth/token', # The token endpoint URL
+    #     client_id='your_backend_service_client_id'
+    # )
+    # Note: The jwt_token should be generated just before it's needed if it's short-lived.
+    # You might set it on the client or server instance directly if fetched/generated later.
+}
+
+# Example of setting it later:
+# smart = client.FHIRClient(settings=settings)
+# smart.jwt_token = generate_signed_client_assertion_jwt(...)
+# smart.server.auth.jwt_token = smart.jwt_token # also ensure auth object gets it if already initialized
+
+# When smart.prepare() or a data request is made, the client will use this JWT
+# in the token request with grant_type=client_credentials and
+# client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer.
+```
+Ensure your JWT is correctly constructed with the appropriate claims (e.g., `iss`, `sub`, `aud`, `exp`, `jti`) as required by the authorization server. The `aud` (audience) claim in the JWT should typically be the URL of the authorization server's token endpoint.
+
+When `jwt_token` is provided in the settings (and no `app_secret` for basic client auth), `fhirclient` will use it for the `client_assertion` parameter when performing a `client_credentials` grant.
+
 ### Data Model Use
 
 The client contains data model classes, built using [fhir-parser][], that handle (de)serialization and allow you to work with FHIR data in a Pythonic way. From version 1.0.5, the validity of the data model is enforced to a certain extent.

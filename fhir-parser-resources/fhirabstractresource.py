@@ -16,11 +16,18 @@ class FHIRAbstractResource(fhirabstractbase.FHIRAbstractBase):
         self._server = None
         """ The server the instance was read from. """
         
-        # raise if "resourceType" does not match
-        if jsondict is not None and 'resourceType' in jsondict \
-            and jsondict['resourceType'] != self.resource_type:
-            raise Exception("Attempting to instantiate {} with resource data that defines a resourceType of \"{}\""
-                .format(self.__class__, jsondict['resourceType']))
+        # raise if "resourceType" does not match (case-insensitive comparison)
+        if jsondict is not None and 'resourceType' in jsondict:
+            incoming_resource_type = jsondict['resourceType'].strip() if jsondict['resourceType'] else ''
+            if not incoming_resource_type:
+                if strict:
+                    raise ValueError("ResourceType cannot be empty or None in JSON data when instantiating {}".format(self.__class__))
+                # else: allow if not strict and factory will handle it or becomes generic Element
+            elif incoming_resource_type.lower() != self.resource_type.lower():
+                # This exception occurs if FHIRElementFactory somehow instantiated the wrong class,
+                # or if this class was instantiated directly with mismatched JSON.
+                raise Exception("Attempting to instantiate {} (expected resourceType '{}') with resource data that defines a resourceType of \"{}\""
+                    .format(self.__class__, self.resource_type, jsondict['resourceType']))
         
         super(FHIRAbstractResource, self).__init__(jsondict=jsondict, strict=strict)
     

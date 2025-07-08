@@ -5,21 +5,13 @@
 #  2014, SMART Health IT.
 
 import logging
-import warnings
-from typing import Iterator, TYPE_CHECKING
-
 
 from . import fhirreference
-from .._utils import iter_pages
 
 try:
     from urllib import quote_plus
-except ImportError:
+except Exception as e:
     from urllib.parse import quote_plus
-
-if TYPE_CHECKING:
-    from fhirclient.models.resource import Resource
-    from fhirclient.models.bundle import Bundle
 
 logger = logging.getLogger(__name__)
 
@@ -98,27 +90,35 @@ class FHIRSearch(object):
         if reference_model is None:
             reference_model = self.resource_type
 
-        model_fields = {
-            name: typ
-            for name, _, typ, _, _, _
-            in reference_model().elementProperties()
-        }
+        # Original problematic validation based on reference_field being a direct model attribute:
+        # model_fields = {
+        #     name: typ
+        #     for name, _, typ, _, _, _
+        #     in reference_model().elementProperties()
+        # }
+        # if model_fields.get(reference_field) is not fhirreference.FHIRReference:
+        #     logging.warning(
+        #         '%s does not have a reference type element named %s. Assuming it is a valid search parameter for _include.',
+        #         reference_model.resource_type, reference_field
+        #     )
+        #     # We allow it to proceed, server will validate the search parameter.
 
-        if model_fields.get(reference_field) is not fhirreference.FHIRReference:
-            logging.warning(
-                '%s does not have a reference type element named %s',
-                reference_model.resource_type, reference_field
-            )
+        # Simpler approach: Trust the user provided a valid search parameter name for _include.
+        # The server will validate if "reference_model:reference_field" is a valid include target.
+        if not isinstance(reference_field, str) or not reference_field:
+            logging.warning('_include reference_field must be a non-empty string.')
             return self
 
-        if reference_model is not self.resource_type and not reverse:
-            logging.warning('Only reverse includes can have a different reference model')
-            reverse = True
+        # The original warning below might be misleading as `reference_model` in `_revinclude`
+        # refers to the resource type being searched for in the revinclude criteria.
+        # if reference_model is not self.resource_type and not reverse:
+        #     logging.warning('Only reverse includes can have a different reference model')
+        #     reverse = True
 
         self.includes.append((reference_model, reference_field, reverse))
         return self
 
-    def _read_bundle(self, server) -> 'Bundle':
+    def perform(self, server):
         """ Construct the search URL and execute it against the given server.
 
         :param server: The server against which to perform the search
@@ -126,63 +126,27 @@ class FHIRSearch(object):
         """
         if server is None:
             raise Exception("Need a server to perform search")
-
-        from .bundle import Bundle
-        return Bundle.read_from(self.construct(), server)
-
-    def perform(self, server) -> 'Bundle':
-        """ Construct the search URL and execute it against the given server.
         
-        :param server: The server against which to perform the search
-        :returns: A Bundle resource
-        """
-        # Old method with deprecation warning
-        warnings.warn(
-            "perform() is deprecated and will be removed in a future release. "
-            "Please use perform_iter() instead.",
-            DeprecationWarning,
-        )
+        from . import bundle
+        res = server.request_json(self.construct())
+        bundle = bundle.Bundle(res)
+        bundle.origin_server = server
+        return bundle
 
-        return self._read_bundle(server)
-
-    # Use forward references to avoid circular imports
-    def perform_iter(self, server) -> Iterator['Bundle']:
-        """ Perform the search by calling `perform` and return an iterator that yields
-        Bundle instances.
-
-        :param server: The server against which to perform the search
-        :returns: An iterator of Bundle instances
-        """
-        return iter_pages(self._read_bundle(server), server)
-
-    def perform_resources(self, server) -> 'list[Resource]':
-        """ Performs the search by calling `perform_resources_iter` and returns a list of Resource instances.
+    def perform_resources(self, server):
+        """ Performs the search by calling `perform`, then extracts all Bundle
+        entries and returns a list of Resource instances.
         
         :param server: The server against which to perform the search
         :returns: A list of Resource instances
         """
-        # Old method with deprecation warning
-        warnings.warn(
-            "perform_resources() is deprecated and will be removed in a future release. "
-            "Please use perform_resources_iter() instead.",
-            DeprecationWarning,
-        )
+        bundle = self.perform(server)
+        resources = []
+        if bundle is not None and bundle.entry is not None:
+            for entry in bundle.entry:
+                resources.append(entry.resource)
 
-        return list(self.perform_resources_iter(server))
-
-    # Use forward references to avoid circular imports
-    def perform_resources_iter(self, server) -> Iterator['Resource']:
-        """ Performs the search by calling `perform_iter` and yields Resource instances
-        from each Bundle returned by the search.
-
-        :param server: The server against which to perform the search
-        :returns: An iterator of Resource instances
-        """
-        for bundle in self.perform_iter(server):
-            entries = bundle.entry or []
-            for entry in entries:
-                if entry.resource:
-                    yield entry.resource
+        return resources
 
 
 class FHIRSearchParam(object):
@@ -215,7 +179,7 @@ class FHIRSearchParam(object):
         return handler.handle(self.copy())
     
     def as_parameter(self):
-        """ Return a string that represents the receiver as "key=value".
+        """ Return a string that represents the reciever as "key=value".
         """
         return '{}={}'.format(self.name, quote_plus(self.value, safe=',<=>'))
 

@@ -90,22 +90,30 @@ class FHIRSearch(object):
         if reference_model is None:
             reference_model = self.resource_type
 
-        model_fields = {
-            name: typ
-            for name, _, typ, _, _, _
-            in reference_model().elementProperties()
-        }
+        # Original problematic validation based on reference_field being a direct model attribute:
+        # model_fields = {
+        #     name: typ
+        #     for name, _, typ, _, _, _
+        #     in reference_model().elementProperties()
+        # }
+        # if model_fields.get(reference_field) is not fhirreference.FHIRReference:
+        #     logging.warning(
+        #         '%s does not have a reference type element named %s. Assuming it is a valid search parameter for _include.',
+        #         reference_model.resource_type, reference_field
+        #     )
+        #     # We allow it to proceed, server will validate the search parameter.
 
-        if model_fields.get(reference_field) is not fhirreference.FHIRReference:
-            logging.warning(
-                '%s does not have a reference type element named %s',
-                reference_model.resource_type, reference_field
-            )
+        # Simpler approach: Trust the user provided a valid search parameter name for _include.
+        # The server will validate if "reference_model:reference_field" is a valid include target.
+        if not isinstance(reference_field, str) or not reference_field:
+            logging.warning('_include reference_field must be a non-empty string.')
             return self
 
-        if reference_model is not self.resource_type and not reverse:
-            logging.warning('Only reverse includes can have a different reference model')
-            reverse = True
+        # The original warning below might be misleading as `reference_model` in `_revinclude`
+        # refers to the resource type being searched for in the revinclude criteria.
+        # if reference_model is not self.resource_type and not reverse:
+        #     logging.warning('Only reverse includes can have a different reference model')
+        #     reverse = True
 
         self.includes.append((reference_model, reference_field, reverse))
         return self
